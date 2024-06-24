@@ -9,7 +9,9 @@ require_once __DIR__ . '/helpers/core.php';
 // Switch statement to handle different routes based on the path from the URL
 switch ($url['path']) {
         // Case: Root path '/'
-    case '/':
+        case '/':
+        case '/Base/':
+        case '/Pokedex/Base/':
         // Check if the HTTP method is GET
         if ($method == 'GET') {
             // Include the 'views/index.php' file for the root path
@@ -36,7 +38,6 @@ switch ($url['path']) {
             require 'controllers/HomeController.php';
             show();
             // Terminate the script to ensure no further code is executed
-            die();
         } else error(405);
         break;
 
