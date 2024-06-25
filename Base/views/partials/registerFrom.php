@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <img src="../../public/img/pokemon-logo.png" alt="Pokemon Logo">
+    <a href="/"><img src="../../public/img/pokemon-logo.png" alt="Pokemon Logo"></a>
         <nav>
             <ul>
                 <li><a href="#">Pokemon</a></li>
@@ -17,7 +17,7 @@
             </ul>
         </nav>
     </header>
-    <main>
+    <main class="form-main">
         <section class="register-container">
             <h2>Register</h2>
             <form>
@@ -32,6 +32,7 @@
                 <label for="password-verification">Password Verification*</label>
                 <input type="password" id="password-verification" name="password-verification" required>
                 <button type="submit">New account</button>
+                <?php ?>
             </form>
         </section>
     </main>

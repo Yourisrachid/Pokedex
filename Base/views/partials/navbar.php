@@ -10,12 +10,12 @@
 <body>
     <nav class="navbar">
         <div class="left-section">
-            <a href="#"><img src="../../public/img/pokemon-logo.png" alt="Pokémon Logo"></a>
+            <a href="views/pages/index.php"><img src="../../public/img/pokemon-logo.png" alt="Pokémon Logo"></a>
         </div>
         <div class="right-section">
             <div class="toggle-darkmode">🌙</div>
             <input type="text" placeholder="Search...">
-            <div class="profile">login</div>
+            <div class="profile"><a href="views/partials/loginForm.php">login</a></div>
         </div>
     </nav>
 

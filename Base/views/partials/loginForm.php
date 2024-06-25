@@ -8,7 +8,7 @@
 </head>
 <body>
 <header>
-        <img src="../../public/img/pokemon-logo.png" alt="Pokemon Logo">
+        <a href="/"><img src="../../public/img/pokemon-logo.png" alt="Pokemon Logo"></a>
         <nav>
             <ul>
                 <li><a href="#">Pokemon</a></li>
@@ -17,7 +17,7 @@
             </ul>
         </nav>
     </header>
-    <main>
+    <main class="form-main">
         <section class="login-container">
             <h2>My Account</h2>
             <form>
