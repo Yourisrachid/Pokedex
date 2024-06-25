@@ -1,3 +1,4 @@
+
 <?php
 $title = "Home";
 require_once __DIR__ . '../../partials/header.php';

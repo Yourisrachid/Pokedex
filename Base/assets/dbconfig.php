@@ -3,6 +3,6 @@
 
 define('DBHOST', 'localhost');
 define('DBNAME', 'pokedex');
-define('DBUSER', 'youris');
-define('DBPASS', 'youris');
+define('DBUSER', 'root');
+define('DBPASS', 'root');
 
