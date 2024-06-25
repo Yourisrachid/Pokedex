@@ -32,4 +32,28 @@ body .navbar input[type=text] {
 }
 body .navbar.dark .profile {
   background-color: #555;
+}
+
+body {
+  background-color: #f1f1f1;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+a {
+  font-weight: bold;
+}
+
+.pokemoncard {
+  display: flex;
+  flex-direction: column;
+  border-color: red;
+  border-width: 2%;
+  border-style: solid;
+}
+.pokemoncard h2 a {
+  text-decoration: none;
+  color: black;
+}
+.pokemoncard img {
+  width: 180px;
 }/*# sourceMappingURL=style.css.map */
