@@ -31,7 +31,7 @@ try {
                 <img src="./public/img/pokemon/<?php echo strtolower($pokemon['name.english']); ?>.png" alt="<?php echo htmlspecialchars($pokemon['name.english']); ?>">
                 <p>Type: <?php 
                     $types = json_decode($pokemon['type'], true);
-                    echo htmlspecialchars(implode(', ', $types));
+                    echo htmlspecialchars(implode(' ', $types));
                 ?></p>
             </div>
         <?php endforeach; ?>
