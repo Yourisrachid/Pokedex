@@ -3,8 +3,12 @@
 // This router needs to be improved ...
 
 // Include the helper file for handling requests
+
 require_once __DIR__ . '/helpers/request.php';
 require_once __DIR__ . '/helpers/core.php';
+require './assets/dbconfig.php';
+
+
 
 // Switch statement to handle different routes based on the path from the URL
 switch ($url['path']) {
@@ -40,6 +44,55 @@ switch ($url['path']) {
             // Terminate the script to ensure no further code is executed
         } else error(405);
         break;
+    
+    case '/login':
+        if ($method == 'GET') {
+            require 'controllers/HomeController.php';
+            login();
+        } else error(405);
+        break;
+        
+    case '/check_login':   
+        if ($method == 'POST' && isset($_POST['username']) && isset($_POST['password'])) {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+        
+            try {
+                $pdo = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+                $stmt = $pdo->prepare('SELECT * FROM user WHERE username = :username');
+                $stmt->bindParam(':username', $username);
+                $stmt->execute();
+        
+                $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                //print_r($user);
+                if ($user && password_verify($password, $user['password'])) {
+                    session_start();
+                    $_SESSION['user'] = $user;
+                    header("Location: /");
+                    exit();
+                } else {
+                    echo "Nom d'utilisateur ou mot de passe incorrect.";
+                }
+            } catch (PDOException $e) {
+                echo 'Erreur : ' . $e->getMessage();
+            }
+
+        } else error(405);
+        break;
+
+        case '/logout':
+            if ($method == 'POST') {
+                session_start();
+                unset($_SESSION['user']);
+                session_destroy();
+                header("Location: /login");
+                exit();
+            } else error(405);
+        break;
+
 
         // Default case: Handle all other paths by calling 'error()' function
     default:

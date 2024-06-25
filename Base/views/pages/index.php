@@ -1,12 +1,20 @@
 
 <?php
+
 $title = "Home";
 require_once __DIR__ . '../../partials/header.php';
+if (isset($_SESSION['user'])) {
+    ?>
+    <form action="/logout" method="post">
+    <button type="submit" name="logout">Déconnexion</button>
+    </form>
+    <?php
+} 
 ?>
 
 <?php
 
-require './assets/dbconfig.php';
+//require './assets/dbconfig.php';
 
 try {
     $pdo = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);

@@ -8,4 +8,10 @@
     <link href="../../public/css/styles.css" type="text/css" rel="stylesheet">
 </head>
 
+<?php 
+session_start();
+require_once __DIR__ .  '/navbar.php';
+
+?>
+
 <body>
