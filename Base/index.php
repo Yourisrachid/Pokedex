@@ -8,6 +8,7 @@ require_once __DIR__ . '/helpers/core.php';
 
 
 
+
 // Switch statement to handle different routes based on the path from the URL
 switch ($url['path']) {
         // Case: Root path '/'
