@@ -15,7 +15,7 @@
         <div class="right-section">
             <div class="toggle-darkmode">🌙</div>
             <input type="text" placeholder="Search...">
-            <div class="profile"></div>
+            <div class="profile">login</div>
         </div>
     </nav>
 
