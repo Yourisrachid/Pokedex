@@ -43,21 +43,6 @@ a {
   font-weight: bold;
 }
 
-.pokemoncard {
-  display: flex;
-  flex-direction: column;
-  border-color: red;
-  border-width: 2%;
-  border-style: solid;
-}
-.pokemoncard h2 a {
-  text-decoration: none;
-  color: black;
-}
-.pokemoncard img {
-  width: 180px;
-}
-
 body {
   font-family: Arial, sans-serif;
   background-color: #f7f7f7;
