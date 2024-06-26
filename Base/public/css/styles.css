@@ -180,3 +180,15 @@ main {
 	border-radius: 4px;
   cursor : pointer;
 }
+
+
+.pokemon-list {
+  display: grid;
+  width: 50%;
+  grid-template-columns: repeat(3, 80%);
+  grid-template-rows: repeat(5, 600px);
+}
+
+img {
+  width: 75%;
+}

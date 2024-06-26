@@ -7,7 +7,7 @@ require_once __DIR__ . '../../partials/header.php';
 
 require './assets/dbconfig.php';
 
-$limit = 10;
+$limit = 15;
 
 try {
     $pdo = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
