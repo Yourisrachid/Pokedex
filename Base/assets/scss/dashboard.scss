@@ -1,0 +1,163 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+// body{
+    // .background-dashboard{
+    //     background-color: rgb(250, 140, 140);
+    //     height: 100vh;
+    //     width: 100vw;
+
+    //     .container-dashboard{
+    //         background-color: rgb(176, 192, 84);
+    //        display: flex;
+    //         .admin{
+    //             margin-left: 5%;
+    //             padding : {
+    //                 top : 2%;
+    //                 right : 0;
+    //                 bottom : 0;
+    //             }
+
+    //             .redim-avatar-admin{
+    //                 border-radius: 50px;
+    //             }
+    //         }
+    //     }
+    // }
+// }
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+
+    .dashboard {
+        display: flex;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        height: 87vh;
+        width: 94vw;
+        .left-panel, .right-panel {
+            padding: 20px;
+        }
+        
+        .left-panel {
+            width: 30%;
+            text-align: center;
+            border-right: 1px solid #ddd;
+            .redim-avatar-admin{
+                border-radius: 50%;
+                transform: scale(0.5);
+                height: 235px;
+            
+                            }
+            .github-logo{
+                width: 15%;
+            }
+            .informations-dashboard{
+                margin-top: 5%;
+            }
+        }
+        
+        .admin-name {
+            margin: 0;
+        }
+        
+        .admin-grade {
+            color: #888;
+        }
+        
+        .right-panel {
+            width: 70%;
+            // display: flex;
+            // flex-direction: column;
+            // justify-content: center;
+
+            .logo_pokemon{
+                display: flex;
+                justify-content: space-around;
+                margin-bottom: 9%;
+                img{
+                    width: 50%;
+                }
+            }
+            .right-panel-button{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                margin-top: 8%;
+            }
+        }
+        
+        .button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        .button:hover {
+            background-color: #0056b3;
+        }
+        
+        .info {
+            background-color: #28a745;
+            color: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
+            border-radius: 5px;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .close:hover, .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    }
+    
+    
+    
+}
+
