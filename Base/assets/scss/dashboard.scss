@@ -53,6 +53,9 @@ body {
             width: 30%;
             text-align: center;
             border-right: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
             .redim-avatar-admin{
                 border-radius: 50%;
                 transform: scale(0.5);
@@ -63,7 +66,16 @@ body {
                 width: 15%;
             }
             .informations-dashboard{
-                margin-top: 5%;
+                margin-bottom : 8%;
+
+                div{
+                    p{
+                        padding-top: 2%;
+                    }
+                    img{
+                        padding-top: 4%;
+                    }
+                }
             }
         }
         
@@ -95,6 +107,11 @@ body {
                 justify-content: space-evenly;
                 margin-top: 8%;
             }
+
+            .container-h2-right{
+                display: flex;
+                justify-content: space-around;
+                }
         }
         
         .button {

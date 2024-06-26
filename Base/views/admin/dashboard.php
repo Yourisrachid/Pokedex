@@ -1,3 +1,22 @@
+<?php 
+
+require '../../assets/dbconfig.php';
+
+
+
+try {
+    $pdo = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $stmt = $pdo->query("SELECT * FROM Pokedex");
+    $pokemonList = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,18 +24,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
+    <!-- <script defer type="module"src="../../assets/js/select.js"></script> -->
     <title>Document</title>
 </head>
 
 <body>
     <header>
 
-
         <div class="dashboard">
             <div class="left-panel">
-                <img class="redim-avatar-admin" src="../../public/img/man1.png" alt="Pokémon Logo" alt="">
-                <h2 class="admin-name">Nom de l'Admin</h2>
-                <p class="admin-grade">Grade Admin</p>
+                <div>
+                    <img class="redim-avatar-admin" src="../../public/img/man1.png" alt="Pokémon Logo" alt="">
+                    <h2 class="admin-name">Nom de l'Admin</h2>
+                    <p class="admin-grade">Grade Admin</p>
+                </div>
                 <div class="informations-dashboard">
                     <h2>Informations</h2>
                     <div>
@@ -31,7 +52,7 @@
                 <div class="logo_pokemon">
                     <img  src="../../public/img/pokemon-logo.png" alt="Pokémon Logo">
                 </div>
-                <div>
+                <div class="container-h2-right">
                     <h2>Dashboard - Admin</h2>
                 </div>
                 <div class="right-panel-button">
