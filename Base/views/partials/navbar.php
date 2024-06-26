@@ -10,12 +10,20 @@
 <body>
     <nav class="navbar">
         <div class="left-section">
-            <a href="#"><img src="../../public/img/pokemon-logo.png" alt="Pokémon Logo"></a>
+            <a href="/"><img src="../../public/img/pokemon-logo.png" alt="Pokémon Logo"></a>
         </div>
         <div class="right-section">
             <div class="toggle-darkmode">🌙</div>
             <input type="text" placeholder="Search...">
-            <a href="/login"><div class="profile"></div></a>
+            <div class="profile"><a href="/login">login</a></div>
+            <?php if (isset($_SESSION['user'])) {
+            ?>
+            <form action="/logout" method="post">
+            <button type="submit" name="logout">Déconnexion</button>
+            </form>
+            <?php
+            } 
+            ?>
         </div>
     </nav>
 

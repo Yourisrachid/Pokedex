@@ -3,16 +3,6 @@
 
 $title = "Home";
 require_once __DIR__ . '../../partials/header.php';
-if (isset($_SESSION['user'])) {
-    ?>
-    <form action="/logout" method="post">
-    <button type="submit" name="logout">Déconnexion</button>
-    </form>
-    <?php
-} 
-?>
-
-<?php
 
 //require './assets/dbconfig.php';
 
@@ -31,7 +21,6 @@ try {
 <main>
     <h1>Pokedex - Homepage</h1>
     <p>Hello <strong><?php echo $user['name'] ?></strong></p>
-    
     <div class="pokemon-list">
         <?php foreach ($pokemonList as $pokemon): ?>
             <div class="pokemoncard">

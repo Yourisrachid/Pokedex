@@ -30,13 +30,133 @@ body .navbar input[type=text] {
   padding: 5px;
   margin-right: 20px;
 }
-body .navbar .profile {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-image: url("../../public/img/man1.png");
-  background-size: cover;
-}
 body .navbar.dark .profile {
   background-color: #555;
+}
+
+body {
+  background-color: #f1f1f1;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+a {
+  font-weight: bold;
+}
+
+.pokemoncard {
+  display: flex;
+  flex-direction: column;
+  border-color: red;
+  border-width: 2%;
+  border-style: solid;
+}
+.pokemoncard h2 a {
+  text-decoration: none;
+  color: black;
+}
+.pokemoncard img {
+  width: 180px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #ffffff;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+header img {
+  height: 60px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 0;
+}
+
+nav ul li {
+  margin: 0 15px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
+nav ul li a.active {
+  color: #fecd43;
+}
+
+.form-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.login-container,
+.register-container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+
+.login-container h2,
+.register-container h2 {
+  margin-bottom: 20px;
+}
+
+.login-container form,
+.register-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-container label,
+.register-container label {
+  text-align: left;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.login-container input,
+.register-container input {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.login-container button,
+.register-container button {
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-container button:hover,
+.register-container button:hover {
+  background-color: #555;
+}
+
+.Create_One {
+  text-decoration: none;
+  color: #ffc62a;
 }/*# sourceMappingURL=style.css.map */
