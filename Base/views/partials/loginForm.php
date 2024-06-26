@@ -13,7 +13,7 @@ require_once __DIR__ . '../../partials/header.php';
             <ul>
                 <li><a href="/">Pokemon</a></li>
                 <li><a href="#" class="active">My Account</a></li>
-                <li><a href="#">Register</a></li>
+                <li><a href="/register">Register</a></li>
             </ul>
         </nav>
     </header>
