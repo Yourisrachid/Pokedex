@@ -1,14 +1,38 @@
 
-function selectAddPokemon(){
-    const SELECTADDBUTTON = document.querySelector('#add-button');
-    
-    SELECTADDBUTTON.addEventListener('click', (e)=>{
-        if(SELECTADDBUTTON){
-            console.log('tu as cliqué sur moi');
-        } else{
-            console.log('error 404 no found');
-        }
-        
-    });
+function printAddPokemonForm() {
+    const selectAddButton = document.querySelector('#add-button');
+
+   selectAddButton.addEventListener('click', (e)=>{
+    console.log('tu as cliqué sur moi bien joué');
+    let modalFont = document.querySelector('#myModal');
+    console.log(modalFont);
+
+    let modalPrint = document.querySelector('.modal-content');
+    console.log(modalPrint);
+
+    if(modalFont && modalPrint){
+        modalFont.style.display="block";
+        modalPrint.style.display="block";
+    }
+   })
 }
-selectAddPokemon();
+
+function closeAddPokemonForm(){
+    const CLOSEFORM = document.querySelector('.close');
+    CLOSEFORM.addEventListener('click', (c)=>{
+        console.log('tu as cliqué sur moi bien joué');
+    let modalFont = document.querySelector('#myModal');
+    console.log(modalFont);
+
+    let modalPrint = document.querySelector('.modal-content');
+    console.log(modalPrint);
+
+    if(modalFont && modalPrint){
+        modalFont.style.display="none";
+        modalPrint.style.display="none";
+    }
+    })
+}
+
+export {printAddPokemonForm}; 
+export {closeAddPokemonForm};

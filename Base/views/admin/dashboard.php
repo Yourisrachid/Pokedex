@@ -14,6 +14,25 @@ try {
     die("Connection failed: " . $e->getMessage());
 }
 
+if(isset($_POST["name"]) && isset($_POST["checkbox-item"]) && isset($_POST["hp"]) &&  isset($_POST["attack"]) &&  isset($_POST["defense"]) &&  isset($_POST["spe-attack"]) &&  
+isset($_POST["spe-defense"]) &&  isset($_POST["speed"])  &&  isset($_POST["species"])  &&  isset($_POST["description"]) 
+ &&  isset($_POST["height"])  &&  isset($_POST["weight"])) {
+    $name = $_POST["name"];
+    $hp = $_POST["hp"];
+    $attack = $_POST["attack"];
+    $defense = $_POST["defense"];
+    $spe_attack = $_POST["spe-attack"];
+    $spe_defense = $_POST["spe-defense"];
+    $speed = $_POST["speed"];
+    $species = $_POST["species"];
+    $description = $_POST["description"];
+    $height = $_POST["height"];
+    $weight = $_POST["weight"];
+
+
+   
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +42,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
-    <script defer type="module" src="../../assets/js/select.js"></script>
+    <script defer type="module" src="../../assets/js/main.js"></script>
     <title>Document</title>
 </head>
 
@@ -58,6 +77,7 @@ try {
                     <div class="button" id="add-button">Ajouter un pokémon</div>
                     <div class="button" id="delete-button">Supprimer un pokémon</div>
                     <div class="info" id="total-pokemon">Nombre total de Pokémon : 150</div>
+                    <?php  echo $name ;?>
                 </div>
 
             </div>
@@ -75,79 +95,79 @@ try {
                         <input type="text" id="name" name="name" maxlength="10" required>
                     </div>
                     <div class="form-group">
-                        <label for="pokemon-types">Choose Pokémon Types:</label>
+                    <label for="pokemon-types">Choose Pokémon Types:</label>
                         <div id="pokemon-types" class="custom-checkbox-group">
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Normal" name="pokemon-type" value="Normal">
-                                <label for="Normal"></label>
+                                <label id="Normal" for="Normal"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Fire" name="pokemon-type" value="Fire">
-                                <label for="Fire"></label>
+                                <label id="Fire" for="Fire"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Water" name="pokemon-type" value="Water">
-                                <label id="water" for="Water"></label>
+                                <label id="Water" for="Water"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Electric" name="pokemon-type" value="Electric">
-                                <label for="Electric"></label>
+                                <label id="Electric" for="Electric"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Grass" name="pokemon-type" value="Grass">
-                                <label for="Grass"></label>
+                                <label id="Grass" for="Grass"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Ice" name="pokemon-type" value="Ice">
-                                <label for="Ice"></label>
+                                <label id="Ice" for="Ice"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Fighting" name="pokemon-type" value="Fighting">
-                                <label for="Fighting"></label>
+                                <label id="Fighting" for="Fighting"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Poison" name="pokemon-type" value="Poison">
-                                <label for="Poison"></label>
+                                <label id="Poison" for="Poison"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Ground" name="pokemon-type" value="Ground">
-                                <label for="Ground"></label>
+                                <label id="Ground" for="Ground"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Flying" name="pokemon-type" value="Flying">
-                                <label for="Flying"></label>
+                                <label id="Flying" for="Flying"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Psychic" name="pokemon-type" value="Psychic">
-                                <label for="Psychic"></label>
+                                <label id="Psychic" for="Psychic"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Bug" name="pokemon-type" value="Bug">
-                                <label for="Bug"></label>
+                                <label id="Bug" for="Bug"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Rock" name="pokemon-type" value="Rock">
-                                <label for="Rock"></label>
+                                <label id="Rock" for="Rock"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Ghost" name="pokemon-type" value="Ghost">
-                                <label for="Ghost"></label>
+                                <label id="Ghost" for="Ghost"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Dragon" name="pokemon-type" value="Dragon">
-                                <label for="Dragon"></label>
+                                <label id="Dragon" for="Dragon"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Dark" name="pokemon-type" value="Dark">
-                                <label for="Dark"></label>
+                                <label id="Dark" for="Dark"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Steel" name="pokemon-type" value="Steel">
-                                <label for="Steel"></label>
+                                <label id="Steel" for="Steel"></label>
                             </div>
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Fairy" name="pokemon-type" value="Fairy">
-                                <label for="Fairy"></label>
+                                <label id="Fairy" for="Fairy"></label>
                             </div>
                         </div>
 
@@ -177,9 +197,14 @@ try {
                         <label for="speed">Speed:</label>
                         <input type="number" id="speed" name="speed" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="species-group">
                         <label for="species">Species:</label>
-                        <input type="text" id="species" name="species" required>
+                        <div class="radio-species">
+                            <label for="male">Male</label><br>
+                            <input type="radio" id="male" name="gender" value="male" required>
+                            <label for="female">Female</label>
+                            <input type="radio" id="female" name="gender" value="female" required>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="description">Description:</label>
@@ -187,11 +212,11 @@ try {
                     </div>
                     <div class="form-group">
                         <label for="height">Height:</label>
-                        <input type="text" id="height" name="height" required>
+                        <input type="number" id="height" name="height" required>
                     </div>
                     <div class="form-group">
                         <label for="weight">Weight:</label>
-                        <input type="text" id="weight" name="weight" required>
+                        <input type="number" id="weight" name="weight" required>
                     </div>
                     <button type="submit">Submit</button>
                 </form>

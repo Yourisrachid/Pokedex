@@ -12,261 +12,397 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #f4f4f4;
+
+    .dashboard {
+        display: flex;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        height: 87vh;
+        width: 94vw;
+        .left-panel, .right-panel {
+            padding: 20px;
+        }
+        
+        .left-panel {
+            width: 30%;
+            text-align: center;
+            border-right: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+        
+        .redim-avatar-admin {
+            border-radius: 50%;
+            transform: scale(0.5);
+            height: 235px;
+        }
+        
+        .github-logo {
+            width: 15%;
+        }
+        
+        .informations-dashboard {
+            margin-bottom: 8%;
+        }
+        
+        .informations-dashboard div p {
+            padding-top: 2%;
+        }
+        
+        .informations-dashboard div img {
+            padding-top: 4%;
+        }
+        
+        .admin-name {
+            margin: 0;
+        }
+        
+        .admin-grade {
+            color: #888;
+        }
+        
+        .right-panel {
+            width: 70%;
+        }
+        
+        .logo_pokemon {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 9%;
+        }
+        
+        .logo_pokemon img {
+            width: 50%;
+        }
+        
+        .right-panel-button {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            margin-top: 8%;
+        }
+        
+        .container-h2-right {
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        .button:hover {
+            background-color: #0056b3;
+        }
+        
+        .info {
+            background-color: #28a745;
+            color: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
+            border-radius: 5px;
+        }
+    }
+    
+    
+    
+    /* Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+
+        .modal-content {
+            display: none;
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .close:hover, .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        /* Formulaire Pokémon */
+        h1 {
+            font-size: 2.5em;
+            color: #e62117; /* Pokémon red */
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+
+           
+        }
+        #species-group{
+            display: flex;
+            flex-direction: row;
+
+            .radio-species{
+               display: flex;
+               align-items: baseline;
+
+               & input[type=radio]{
+                margin-left: 10%;
+                margin-right: 13%;
+               }
+                
+               label{
+                margin-left: 14%;
+               }
+            }
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #0047AB; /* Pokémon blue */
+        }
+        
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        textarea {
+            resize: vertical;
+        }
+        
+        button[type="submit"] {
+            background-color: #ffcc00; /* Pikachu yellow */
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        button[type="submit"]:hover {
+            background-color: #ffc000; /* Darker Pikachu yellow on hover */
+        }
+        
+        /* Styles for Pokémon Types */
+        
+        /* Inline Checkbox Items */
+        #pokemon-types {
+            display: flex;
+            flex-wrap: wrap;
+            flex : 1 1 100px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .checkbox-item input {
+            margin-right: 5px;
+        }
+        
+        /* Custom Button */
+        .custom-button {
+            display: inline-block;
+        }
+        
+        .custom-button input[type="checkbox"] {
+            display: none;
+        }
+        
+        .custom-button .button-label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-image: url(../../public/img/type/water.png); /* Modifier l'image de fond */
+            background-repeat: no-repeat;
+            background-size: contain;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            padding-right: 0;
+        }
+        
+        /* Stylisation des checkboxes */
+        .custom-checkbox-group input[type="checkbox"] {
+            position: absolute;
+            left: -9999px; /* Cacher l'input checkbox */
+        }
+        
+        .custom-checkbox-group label {
+            display: inline-flex;
+            padding: 14px 14px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        
+        
+        .custom-checkbox-group #Water{
+            background-image: url(../../public/img/type/water.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+            
+        
+        }
+        
+        .custom-checkbox-group #Normal{
+            background-image: url(../../public/img/type/normal.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #Fire{
+            background-image: url(../../public/img/type/fire.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #Electric{
+            background-image: url(../../public/img/type/electrik.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #Grass{
+            background-image: url(../../public/img/type/plante.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #Ice{
+            background-image: url(../../public/img/type/glace.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #Fighting{
+            background-image: url(../../public/img/type/combat.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #Poison{
+            background-image: url(../../public/img/type/poison.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #Ground{
+            background-image: url(../../public/img/type/sol.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #Flying{
+            background-image: url(../../public/img/type/vol.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #Psychic{
+            background-image: url(../../public/img/type/psy.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #water{
+            background-image: url(../../public/img/type/water.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #Bug{
+            background-image: url(../../public/img/type/insecte.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #Rock{
+            background-image: url(../../public/img/type/roche.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #Ghost{
+            background-image: url(../../public/img/type/spectre.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #Dragon{
+            background-image: url(../../public/img/type/dragon.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #Dark{
+            background-image: url(../../public/img/type/tenebre.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #Steel{
+            background-image: url(../../public/img/type/acier.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .custom-checkbox-group #Fairy{
+            background-image: url(../../public/img/type/fee.png);
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        // background-image: url(../../public/img/type/water.png);
+        
+        
+        
+        //checkbox check
+        .custom-checkbox-group input[type="checkbox"]:checked + label {
+            border-radius: 14px;
+            border-width: 3px;
+            background-color: #f20000; /* Couleur de fond lorsque coché */
+            // border-color: #0056b3; /* Bordure lorsque coché */
+        }
+    }
+    
+    
 }
 
-.dashboard {
-    display: flex;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    height: 87vh;
-    width: 94vw;
-}
 
-.left-panel, .right-panel {
-    padding: 20px;
-}
-
-.left-panel {
-    width: 30%;
-    text-align: center;
-    border-right: 1px solid #ddd;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-
-.redim-avatar-admin {
-    border-radius: 50%;
-    transform: scale(0.5);
-    height: 235px;
-}
-
-.github-logo {
-    width: 15%;
-}
-
-.informations-dashboard {
-    margin-bottom: 8%;
-}
-
-.informations-dashboard div p {
-    padding-top: 2%;
-}
-
-.informations-dashboard div img {
-    padding-top: 4%;
-}
-
-.admin-name {
-    margin: 0;
-}
-
-.admin-grade {
-    color: #888;
-}
-
-.right-panel {
-    width: 70%;
-}
-
-.logo_pokemon {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 9%;
-}
-
-.logo_pokemon img {
-    width: 50%;
-}
-
-.right-panel-button {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    margin-top: 8%;
-}
-
-.container-h2-right {
-    display: flex;
-    justify-content: space-around;
-}
-
-.button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 15px;
-    margin: 10px 0;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.button:hover {
-    background-color: #0056b3;
-}
-
-.info {
-    background-color: #28a745;
-    color: #fff;
-    padding: 15px;
-    margin: 10px 0;
-    text-align: center;
-    border-radius: 5px;
-}
-
-/* Modal */
-.modal {
-    display: block;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 500px;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover, .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Formulaire Pokémon */
-h1 {
-    font-size: 2.5em;
-    color: #e62117; /* Pokémon red */
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #0047AB; /* Pokémon blue */
-}
-
-input[type="text"], input[type="number"], textarea {
-    width: 100%;
-    padding: 10px;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-textarea {
-    resize: vertical;
-}
-
-button[type="submit"] {
-    background-color: #ffcc00; /* Pikachu yellow */
-    color: #000;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.2em;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-button[type="submit"]:hover {
-    background-color: #ffc000; /* Darker Pikachu yellow on hover */
-}
-
-/* Styles for Pokémon Types */
-
-/* Inline Checkbox Items */
-#pokemon-types {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding-bottom: 2%;
-}
-
-.checkbox-item {
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-    margin-bottom: 10px;
-}
-
-.checkbox-item input {
-    margin-right: 5px;
-}
-
-/* Custom Button */
-.custom-button {
-    display: inline-block;
-}
-
-.custom-button input[type="checkbox"] {
-    display: none;
-}
-
-.custom-button .button-label {
-    display: inline-block;
-    padding: 10px 20px;
-    background-image: url(../../public/img/type/water.png); /* Modifier l'image de fond */
-    background-repeat: no-repeat;
-    background-size: contain;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    border: none;
-    padding-right: 0;
-}
-
-/* Stylisation des checkboxes */
-.custom-checkbox-group input[type="checkbox"] {
-    position: absolute;
-    left: -9999px; /* Cacher l'input checkbox */
-}
-
-.custom-checkbox-group  #Water{
-    // background-image: url(../../public/img/type/water.png);
-    background-color: red;
-}
-.custom-checkbox-group label {
-    display: inline-block;
-    padding: 14px 14px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.custom-checkbox-group #water{
-    background-image: url(../../public/img/type/water.png);
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-// background-image: url(../../public/img/type/water.png);
-
-
-
-
-// .custom-checkbox-group input[type="checkbox"]:checked + label {
-//     background-color: #0056b3; /* Couleur de fond lorsque coché */
-//     border-color: #0056b3; /* Bordure lorsque coché */
-// }
