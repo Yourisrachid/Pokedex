@@ -6,17 +6,19 @@
 
         <div class="links">
             <ul>
-                <li><a href="/">Pokemon</a></li>
-                <li><a href="/login" class="active">My Account</a></li>
+                <li><?php echoLink('/', 'Pokemon'); ?></li>
+                <li><?php echoLink('login', 'My account'); ?></li>
                 <?php if (isset($_SESSION['user'])) {
                 ?>
                 <form action="/logout" method="post">
-                <button type="submit" name="logout">Déconnexion</button>
+                <button type="submit" name="logout">Log Out</button>
                 </form>
                 <?php
-                } 
+                } else {
                 ?>
                 <li><a href="/register">Register</a></li>
+                <?php } ?>
+
             </ul>
         </div>
 
@@ -45,3 +47,13 @@
         });
     </script>
 
+<?php
+
+$current_page = basename($_SERVER['REQUEST_URL']);
+
+function echoLink($url, $text) {
+    global $current_page;
+    $class = (basename($url) == $current_page) ? "class='active'" : '';
+    echo "<a href=\"$url\" \"$class\">$text</a>";
+}
+?>
