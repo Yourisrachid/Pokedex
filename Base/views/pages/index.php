@@ -13,7 +13,7 @@ try {
     $pdo = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt = $pdo->query("SELECT * FROM Pokedex");
+    $stmt = $pdo->query("SELECT Count(*) FROM Pokedex");
     $pokemonList = $stmt->fetchColumn();
 
 
@@ -61,13 +61,41 @@ try {
     </div>
 
 
+    <?php if ($total_pages > 0): ?>
+        <ul class="pagination">
+            <?php if ($page > 1): ?>
+            <li class="prev"><a href="/?page=<?php echo $page-1 ?>">Prev</a></li>
+            <?php endif; ?>
 
-    <?php for ($page=1; $page <= $total_pages ; $page++):?>
+            <?php if ($page > 3): ?>
+            <li class="start"><a href="/?page=1">1</a></li>
+            <li class="dots">...</li>
+            <?php endif; ?>
 
-    <a href='<?php echo "?page=$page"; ?>' class="links"><?php  echo $page; ?>
-    </a>
+            <?php if ($page-2 > 0): ?><li class="page"><a href="/?page=<?php echo $page-2 ?>"><?php echo $page-2 ?></a></li><?php endif; ?>
+            <?php if ($page-1 > 0): ?><li class="page"><a href="/?page=<?php echo $page-1 ?>"><?php echo $page-1 ?></a></li><?php endif; ?>
 
-    <?php endfor; ?>
+            <li class="currentpage"><a href="/?page=<?php echo $page ?>"><?php echo $page ?></a></li>
+
+            <?php if ($page+1 < $total_pages+1): ?><li class="page"><a href="/?page=<?php echo $page+1 ?>"><?php echo $page+1 ?></a></li><?php endif; ?>
+            <?php if ($page+2 < $total_pages+1): ?><li class="page"><a href="/?page=<?php echo $page+2 ?>"><?php echo $page+2 ?></a></li><?php endif; ?>
+
+            <?php if ($page < $total_pages-2): ?>
+            <li class="dots">...</li>
+            <li class="end"><a href="/?page=<?php echo $total_pages ?>"><?php echo $total_pages ?></a></li>
+            <?php endif; ?>
+
+            <?php if ($page < $total_pages): ?>
+            <li class="next"><a href="/?page=<?php echo $page+1 ?>">Next</a></li>
+            <?php endif; ?>
+        </ul>
+    <?php endif; ?>
+
+    <form action="/?page=" method="get">
+        <input type="hidden" name="content" value="home" />
+        <label>Go to page : <input type="number" name="page" /></label>
+        <input class="goto" type="submit" value="Go" />
+    </form>
 
 </main>
 
