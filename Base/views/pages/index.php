@@ -1,11 +1,10 @@
+
 <?php
+
 $title = "Home";
 require_once __DIR__ . '../../partials/header.php';
-?>
 
-<?php
-
-require './assets/dbconfig.php';
+//require './assets/dbconfig.php';
 
 try {
     $pdo = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
@@ -22,7 +21,6 @@ try {
 <main>
     <h1>Pokedex - Homepage</h1>
     <p>Hello <strong><?php echo $user['name'] ?></strong></p>
-    
     <div class="pokemon-list">
         <?php foreach ($pokemonList as $pokemon): ?>
             <div class="pokemoncard">
