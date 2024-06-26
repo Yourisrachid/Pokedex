@@ -25,11 +25,11 @@ try {
         <?php foreach ($pokemonList as $pokemon): ?>
             <div class="pokemoncard">
             <h2><a href="/pokemon?name=<?php echo urlencode(strtolower($pokemon['name.english'])); ?>"><?php echo htmlspecialchars($pokemon['name.english']); ?></a></h2>
+                <img src="./public/img/pokemon/<?php echo strtolower($pokemon['name.english']); ?>.png" alt="<?php echo htmlspecialchars($pokemon['name.english']); ?>">
                 <p>Type: <?php 
                     $types = json_decode($pokemon['type'], true);
-                    echo htmlspecialchars(implode(', ', $types));
+                    echo htmlspecialchars(implode(' ', $types));
                 ?></p>
-                <img src="./public/img/pokemon/<?php echo strtolower($pokemon['name.english']); ?>.png" alt="<?php echo htmlspecialchars($pokemon['name.english']); ?>">
             </div>
         <?php endforeach; ?>
     </div>
