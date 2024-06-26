@@ -4,19 +4,6 @@ $title = "Login";
 require_once __DIR__ . '../../partials/header.php';
 
 ?>
-
-
-
-<header>
-        <a href="/"><img src="../../public/img/pokemon-logo.png" alt="Pokemon Logo"></a>
-        <nav>
-            <ul>
-                <li><a href="/">Pokemon</a></li>
-                <li><a href="#" class="active">My Account</a></li>
-                <li><a href="/register">Register</a></li>
-            </ul>
-        </nav>
-    </header>
     <main class="form-main">
         <section class="login-container">
             <h2>My Account</h2>

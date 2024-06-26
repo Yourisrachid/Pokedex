@@ -39,8 +39,7 @@ try {
 ?>
 
 <main>
-    <h1>Pokedex - Homepage</h1>
-    <p>Hello <strong><?php echo $user['name'] ?></strong></p>
+
     <div class="pokemon-list">
         <?php while ($pokemon = $r->fetch(PDO::FETCH_ASSOC)): ?>
             <div class="pokemoncard">

@@ -1,31 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../assets/css/style.css">
-    <title>Pokémon NavBar</title>
 
-</head>
-<body>
     <nav class="navbar">
         <div class="left-section">
             <a href="/"><img src="../../public/img/pokemon-logo.png" alt="Pokémon Logo"></a>
         </div>
+
+        <div class="links">
+            <ul>
+                <li><a href="/">Pokemon</a></li>
+                <li><a href="/login" class="active">My Account</a></li>
+                <?php if (isset($_SESSION['user'])) {
+                ?>
+                <form action="/logout" method="post">
+                <button type="submit" name="logout">Déconnexion</button>
+                </form>
+                <?php
+                } 
+                ?>
+                <li><a href="/register">Register</a></li>
+            </ul>
+        </div>
+
+
         <div class="right-section">
             <div class="toggle-darkmode">🌙</div>
-            <input type="text" placeholder="Search...">
-            <div class="profile"><a href="/login">login</a></div>
-            <?php if (isset($_SESSION['user'])) {
-            ?>
-            <form action="/logout" method="post">
-            <button type="submit" name="logout">Déconnexion</button>
-            </form>
-            <?php
-            } 
-            ?>
         </div>
     </nav>
+
+
 
     <script>
         const toggleDarkMode = document.querySelector('.toggle-darkmode');
@@ -43,5 +44,4 @@
             }
         });
     </script>
-</body>
-</html>
+
