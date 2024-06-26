@@ -17,7 +17,7 @@ main {
 }
 
 
-a {
+.pokemonName {
   display: inline-block;
   margin-top: 20px;
   padding: 10px 20px;
@@ -68,8 +68,11 @@ a {
 .type.ghost { background-color: #705898; }
 .type.dragon { background-color: #7038F8; }
 .type.dark { background-color: #705848; }
-.type.steel { background-color: #B8B8D0; }
+.type.steel { background-color: #9999a8; }
 .type.fairy { background-color: #EE99AC; }
+.type.normal { background-color: #B8B8D0; }
+
+
 
 .stats {
   width: 100%;
@@ -98,7 +101,7 @@ a {
 }
 
 .fill {
-  background-color: #4caf50;
+  background-color: #1c154e;
   height: 100%;
   text-align: right;
   line-height: 20px;

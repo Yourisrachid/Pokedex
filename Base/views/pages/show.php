@@ -123,14 +123,14 @@ try {
                 <span><?php echo htmlspecialchars($pokemon['base.Defense']); ?></span>
             </div>
             <div class="stat">
-                <span>Sp. Attack</span>
+                <span>Sp. Att.</span>
                 <div class="bar">
                     <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['base.Sp. Attack']); ?>%; ?>"></div>
                 </div>
                 <span><?php echo htmlspecialchars($pokemon['base.Sp. Attack']); ?></span>
             </div>
             <div class="stat">
-                <span>Sp. Defense</span>
+                <span>Sp. Def.</span>
                 <div class="bar">
                     <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['base.Sp. Defense']); ?>%; ?>"></div>
                 </div>
@@ -151,7 +151,7 @@ try {
         <div class="evolution-chain">
             <?php foreach ($evolutionCycle as $evolutionStage): ?>
                 <div class="evolution-stage">
-                    <a href="pokemon?name=<?php echo strtolower(htmlspecialchars($evolutionStage['name.english'])); ?>">
+                    <a class="pokemonEvolution" href="pokemon?name=<?php echo strtolower(htmlspecialchars($evolutionStage['name.english'])); ?>">
                         <img src="<?php echo htmlspecialchars($evolutionStage['image.hires']); ?>" alt="<?php echo htmlspecialchars($evolutionStage['name.english']); ?>">
                         <p><?php echo htmlspecialchars($evolutionStage['name.english']); ?></p>
                     </a>
@@ -160,7 +160,7 @@ try {
         </div>
     </div>
 
-    <a href="/">Homepage</a>
+    <a class="pokemonName" href="/">Homepage</a>
 </main>
 
 <?php
