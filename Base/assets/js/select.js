@@ -1,9 +1,14 @@
 
 function selectAddPokemon(){
     const SELECTADDBUTTON = document.querySelector('#add-button');
-    if(SELECTADDBUTTON){
-        console.log("je l'ai récupéré");
-    } else{
-        console.log(" tu ne l'as pas récupéré");
-    }
+    
+    SELECTADDBUTTON.addEventListener('click', (e)=>{
+        if(SELECTADDBUTTON){
+            console.log('tu as cliqué sur moi');
+        } else{
+            console.log('error 404 no found');
+        }
+        
+    });
 }
+selectAddPokemon();

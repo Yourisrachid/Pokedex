@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -13,18 +14,20 @@ body {
   height: 100vh;
   background-color: #f4f4f4;
 }
-body .dashboard {
+
+.dashboard {
   display: flex;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   height: 87vh;
   width: 94vw;
-  /* Modal */
 }
-body .dashboard .left-panel, body .dashboard .right-panel {
+
+.left-panel, .right-panel {
   padding: 20px;
 }
-body .dashboard .left-panel {
+
+.left-panel {
   width: 30%;
   text-align: center;
   border-right: 1px solid #ddd;
@@ -32,51 +35,64 @@ body .dashboard .left-panel {
   flex-direction: column;
   justify-content: space-evenly;
 }
-body .dashboard .left-panel .redim-avatar-admin {
+
+.redim-avatar-admin {
   border-radius: 50%;
   transform: scale(0.5);
   height: 235px;
 }
-body .dashboard .left-panel .github-logo {
+
+.github-logo {
   width: 15%;
 }
-body .dashboard .left-panel .informations-dashboard {
+
+.informations-dashboard {
   margin-bottom: 8%;
 }
-body .dashboard .left-panel .informations-dashboard div p {
+
+.informations-dashboard div p {
   padding-top: 2%;
 }
-body .dashboard .left-panel .informations-dashboard div img {
+
+.informations-dashboard div img {
   padding-top: 4%;
 }
-body .dashboard .admin-name {
+
+.admin-name {
   margin: 0;
 }
-body .dashboard .admin-grade {
+
+.admin-grade {
   color: #888;
 }
-body .dashboard .right-panel {
+
+.right-panel {
   width: 70%;
 }
-body .dashboard .right-panel .logo_pokemon {
+
+.logo_pokemon {
   display: flex;
   justify-content: space-around;
   margin-bottom: 9%;
 }
-body .dashboard .right-panel .logo_pokemon img {
+
+.logo_pokemon img {
   width: 50%;
 }
-body .dashboard .right-panel .right-panel-button {
+
+.right-panel-button {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   margin-top: 8%;
 }
-body .dashboard .right-panel .container-h2-right {
+
+.container-h2-right {
   display: flex;
   justify-content: space-around;
 }
-body .dashboard .button {
+
+.button {
   background-color: #007bff;
   color: #fff;
   padding: 15px;
@@ -85,10 +101,12 @@ body .dashboard .button {
   cursor: pointer;
   border-radius: 5px;
 }
-body .dashboard .button:hover {
+
+.button:hover {
   background-color: #0056b3;
 }
-body .dashboard .info {
+
+.info {
   background-color: #28a745;
   color: #fff;
   padding: 15px;
@@ -96,8 +114,10 @@ body .dashboard .info {
   text-align: center;
   border-radius: 5px;
 }
-body .dashboard .modal {
-  display: none;
+
+/* Modal */
+.modal {
+  display: block;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -108,7 +128,8 @@ body .dashboard .modal {
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
 }
-body .dashboard .modal-content {
+
+.modal-content {
   background-color: #fefefe;
   margin: 15% auto;
   padding: 20px;
@@ -116,14 +137,127 @@ body .dashboard .modal-content {
   width: 80%;
   max-width: 500px;
 }
-body .dashboard .close {
+
+.close {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
-body .dashboard .close:hover, body .dashboard .close:focus {
+
+.close:hover, .close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+/* Formulaire Pokémon */
+h1 {
+  font-size: 2.5em;
+  color: #e62117; /* Pokémon red */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #0047AB; /* Pokémon blue */
+}
+
+input[type=text], input[type=number], textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button[type=submit] {
+  background-color: #ffcc00; /* Pikachu yellow */
+  color: #000;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+button[type=submit]:hover {
+  background-color: #ffc000; /* Darker Pikachu yellow on hover */
+}
+
+/* Styles for Pokémon Types */
+/* Inline Checkbox Items */
+#pokemon-types {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding-bottom: 2%;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.checkbox-item input {
+  margin-right: 5px;
+}
+
+/* Custom Button */
+.custom-button {
+  display: inline-block;
+}
+
+.custom-button input[type=checkbox] {
+  display: none;
+}
+
+.custom-button .button-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-image: url(../../public/img/type/water.png); /* Modifier l'image de fond */
+  background-repeat: no-repeat;
+  background-size: contain;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  padding-right: 0;
+}
+
+/* Stylisation des checkboxes */
+.custom-checkbox-group input[type=checkbox] {
+  position: absolute;
+  left: -9999px; /* Cacher l'input checkbox */
+}
+
+.custom-checkbox-group #Water {
+  background-color: red;
+}
+
+.custom-checkbox-group label {
+  display: inline-block;
+  padding: 14px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.custom-checkbox-group #water {
+  background-image: url(../../public/img/type/water.png);
+  background-repeat: no-repeat;
+  background-size: contain;
 }/*# sourceMappingURL=dashboard.css.map */

@@ -1,16 +1,15 @@
-<?php 
+<?php
 
 require '../../assets/dbconfig.php';
 
 
 
 try {
-    $pdo = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
+    $pdo = new PDO("mysql:host=" . DBHOST . ";dbname=" . DBNAME, DBUSER, DBPASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $stmt = $pdo->query("SELECT * FROM Pokedex");
     $pokemonList = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 } catch (PDOException $e) {
     die("Connection failed: " . $e->getMessage());
 }
@@ -24,7 +23,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
-    <!-- <script defer type="module"src="../../assets/js/select.js"></script> -->
+    <script defer type="module" src="../../assets/js/select.js"></script>
     <title>Document</title>
 </head>
 
@@ -50,7 +49,7 @@ try {
             </div>
             <div class="right-panel">
                 <div class="logo_pokemon">
-                    <img  src="../../public/img/pokemon-logo.png" alt="Pokémon Logo">
+                    <img src="../../public/img/pokemon-logo.png" alt="Pokémon Logo">
                 </div>
                 <div class="container-h2-right">
                     <h2>Dashboard - Admin</h2>
@@ -68,11 +67,138 @@ try {
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <p>Formulaire pour ajouter un élément.</p>
+
+                <h1>Formulaire Pokémon</h1>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" maxlength="10" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pokemon-types">Choose Pokémon Types:</label>
+                        <div id="pokemon-types" class="custom-checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Normal" name="pokemon-type" value="Normal">
+                                <label for="Normal"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Fire" name="pokemon-type" value="Fire">
+                                <label for="Fire"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Water" name="pokemon-type" value="Water">
+                                <label id="water" for="Water"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Electric" name="pokemon-type" value="Electric">
+                                <label for="Electric"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Grass" name="pokemon-type" value="Grass">
+                                <label for="Grass"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Ice" name="pokemon-type" value="Ice">
+                                <label for="Ice"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Fighting" name="pokemon-type" value="Fighting">
+                                <label for="Fighting"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Poison" name="pokemon-type" value="Poison">
+                                <label for="Poison"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Ground" name="pokemon-type" value="Ground">
+                                <label for="Ground"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Flying" name="pokemon-type" value="Flying">
+                                <label for="Flying"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Psychic" name="pokemon-type" value="Psychic">
+                                <label for="Psychic"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Bug" name="pokemon-type" value="Bug">
+                                <label for="Bug"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Rock" name="pokemon-type" value="Rock">
+                                <label for="Rock"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Ghost" name="pokemon-type" value="Ghost">
+                                <label for="Ghost"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Dragon" name="pokemon-type" value="Dragon">
+                                <label for="Dragon"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Dark" name="pokemon-type" value="Dark">
+                                <label for="Dark"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Steel" name="pokemon-type" value="Steel">
+                                <label for="Steel"></label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="Fairy" name="pokemon-type" value="Fairy">
+                                <label for="Fairy"></label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="hp">HP:</label>
+                        <input type="number" id="hp" name="hp" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="attack">Attack:</label>
+                        <input type="number" id="attack" name="attack" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="defense">Defense:</label>
+                        <input type="number" id="defense" name="defense" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="spe-attack">Special Attack:</label>
+                        <input type="number" id="spe-attack" name="spe_attack" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="spe-defense">Special Defense:</label>
+                        <input type="number" id="spe-defense" name="spe_defense" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="speed">Speed:</label>
+                        <input type="number" id="speed" name="speed" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="species">Species:</label>
+                        <input type="text" id="species" name="species" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="height">Height:</label>
+                        <input type="text" id="height" name="height" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="weight">Weight:</label>
+                        <input type="text" id="weight" name="weight" required>
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
             </div>
         </div>
 
-        <script src="scripts.js"></script>
+
 
         <!-- 
         <main class="background-dashboard">
