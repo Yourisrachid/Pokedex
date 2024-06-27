@@ -50,8 +50,8 @@ try {
         $special_attack = $pokemon['base']['Sp. Attack'] ?? null;
         $special_defense = $pokemon['base']['Sp. Defense'] ?? null;
         $description = $pokemon['description'] ?? null;
-        $height = $pokemon['profile']['height'] ?? null;
-        $weight = $pokemon['profile']['weight'] ?? null;
+        $height = floatval($pokemon['profile']['height']) ?? null;
+        $weight = floatval($pokemon['profile']['weight']) ?? null;
         $species = $pokemon['species'];
 
         // Check and insert species if not exists
