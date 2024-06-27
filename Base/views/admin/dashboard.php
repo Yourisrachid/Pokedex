@@ -1,40 +1,87 @@
 <?php
-
 require '../../assets/dbconfig.php';
-
-
 
 try {
     $pdo = new PDO("mysql:host=" . DBHOST . ";dbname=" . DBNAME, DBUSER, DBPASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt = $pdo->query("SELECT * FROM Pokedex");
+    $stmt = $pdo->query("SELECT * FROM pokedex");
     $pokemonList = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     die("Connection failed: " . $e->getMessage());
 }
 
-if(isset($_POST["name"]) && isset($_POST["checkbox-item"]) && isset($_POST["hp"]) &&  isset($_POST["attack"]) &&  isset($_POST["defense"]) &&  isset($_POST["spe-attack"]) &&  
-isset($_POST["spe-defense"]) &&  isset($_POST["speed"])  &&  isset($_POST["species"])  &&  isset($_POST["description"]) 
- &&  isset($_POST["height"])  &&  isset($_POST["weight"])) {
-    $name = $_POST["name"];
-    $hp = $_POST["hp"];
-    $attack = $_POST["attack"];
-    $defense = $_POST["defense"];
-    $spe_attack = $_POST["spe-attack"];
-    $spe_defense = $_POST["spe-defense"];
-    $speed = $_POST["speed"];
-    $species = $_POST["species"];
-    $description = $_POST["description"];
-    $height = $_POST["height"];
-    $weight = $_POST["weight"];
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    print_r($_POST); // Debugging statement
+
+    if (isset($_POST['name']) && isset($_POST['checkbox-item']) && isset($_POST['hp']) &&  
+        isset($_POST['attack']) && isset($_POST['defense']) && isset($_POST['spe-attack']) &&  
+        isset($_POST['spe-defense']) && isset($_POST['speed']) && isset($_POST['species']) &&  
+        isset($_POST['description']) && isset($_POST['height']) && isset($_POST['weight'])) {
+        
+        $name = $_POST['name'];
+        $checkbox_item = $_POST['checkbox-item'];
+        $hp = $_POST['hp'];
+        $attack = $_POST['attack'];
+        $defense = $_POST['defense'];
+        $spe_attack = $_POST['spe-attack'];
+        $spe_defense = $_POST['spe-defense'];
+        $speed = $_POST['speed'];
+        $species = $_POST['species'];
+        $description = $_POST['description'];
+        $height = $_POST['height'];
+        $weight = $_POST['weight'];
+
+        $params = [
+            ':name' => $name,
+            ':checkbox_item'=> $checkbox_item,
+            ':hp'=> $hp,
+            ':attack'=> $attack,
+            ':defense'=> $defense,
+            ':spe_attack'=> $spe_attack,
+            ':spe_defense'=> $spe_defense,
+            ':speed'=> $speed,
+            ':species'=> $species,
+            ':description'=> $description,
+            ':height'=> $height,
+            ':weight'=> $weight
+        ];
+
+        echo '<pre>';
+        print_r($params); // Debugging statement
+        echo '</pre>';
+        // Optional: Insert the data into the database
+        $sql = "INSERT INTO pokedex (name, type, base.HP, base.Attack, base.Defense, base.Sp.Attack, base.Sp.Defense, base.Speed, species, description, profile.height, profile.weight) 
+                VALUES (:name, :checkbox_item, :hp, :attack, :defense, :spe_attack, :spe_defense, :speed, :species, :description, :height, :weight)";
+        $stmt = $pdo->prepare($sql);
+
+        print_r($stmt);
+        $stmt->execute($params);
+        
 
 
-   
+    } else {
+        echo "All fields are required.";
+    }
+    if (isset($_POST['pokemon-type']) && is_array($_POST['pokemon-type'])) {
+        $selectedTypes = $_POST['pokemon-type'];
+        if (count($selectedTypes) > 2) {
+            echo "You can only select up to two types.";
+        } else {
+            // Process the selected types
+            foreach ($selectedTypes as $type) {
+                echo htmlspecialchars($type) . "<br>";
+            }
+        }
+    } else {
+        echo "No types selected.";
+    }
 }
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,7 +95,6 @@ isset($_POST["spe-defense"]) &&  isset($_POST["speed"])  &&  isset($_POST["speci
 
 <body>
     <header>
-
         <div class="dashboard">
             <div class="left-panel">
                 <div>
@@ -77,9 +123,7 @@ isset($_POST["spe-defense"]) &&  isset($_POST["speed"])  &&  isset($_POST["speci
                     <div class="button" id="add-button">Ajouter un pokémon</div>
                     <div class="button" id="delete-button">Supprimer un pokémon</div>
                     <div class="info" id="total-pokemon">Nombre total de Pokémon : 150</div>
-                    <?php  echo $name ;?>
                 </div>
-
             </div>
         </div>
 
@@ -95,7 +139,7 @@ isset($_POST["spe-defense"]) &&  isset($_POST["speed"])  &&  isset($_POST["speci
                         <input type="text" id="name" name="name" maxlength="10" required>
                     </div>
                     <div class="form-group">
-                    <label for="pokemon-types">Choose Pokémon Types:</label>
+                        <label for="pokemon-types">Choose Pokémon Types:</label>
                         <div id="pokemon-types" class="custom-checkbox-group">
                             <div class="checkbox-item">
                                 <input type="checkbox" id="Normal" name="pokemon-type" value="Normal">
@@ -222,35 +266,6 @@ isset($_POST["spe-defense"]) &&  isset($_POST["speed"])  &&  isset($_POST["speci
                 </form>
             </div>
         </div>
-
-
-
-        <!-- 
-        <main class="background-dashboard">
-            <section class="container-dashboard">
-                <div class="admin">
-                    <div>
-                        <img class="redim-avatar-admin" src="../../public/img/man1.png" alt="Pokémon Logo" alt="">
-                        <p>Nom admin</p>
-                        <p>Grade admin</p>
-                    </div>
-                </div>
-                <div class="info-user-admin">
-                    <h2>Dasbord Admin</h2>
-                    <div>
-                        <div>
-                           <p>Ajouter un Pokémon</p>
-                        </div>
-                        <div>
-                           <p>retirer un Pokémon</p>
-                        </div>
-                        <div>
-                           <p>Nombre pokémon : </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main> -->
     </header>
 </body>
 
