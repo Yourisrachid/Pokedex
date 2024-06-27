@@ -54,8 +54,8 @@ switch ($url['path']) {
         
     case '/check_login':   
         if ($method == 'POST' && isset($_POST['username']) && isset($_POST['password'])) {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
+            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
         
             try {
                 $pdo = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
@@ -93,6 +93,59 @@ switch ($url['path']) {
             } else error(405);
         break;
 
+        case '/register':
+            if ($method == 'GET') {
+                require 'controllers/HomeController.php';
+                register();
+            } else error(405);
+            break;
+
+        case '/addUser':
+            if ($method == 'POST' && isset($_POST['username']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['birthday']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password-verification'])) {
+                $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
+                $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
+                $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+                $birthday = filter_input(INPUT_POST, 'birthday', FILTER_SANITIZE_STRING);
+                $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+                $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+                $password_verification = filter_input(INPUT_POST, 'password-verification', FILTER_SANITIZE_STRING);
+
+                if ($password !== $password_verification) {
+                    echo 'Passwords do not match';
+                    break;
+                }
+
+                if (!$username || !$firstname || !$lastname || !$birthday || !$email || !$password || !$password_verification) {
+                    echo 'Invalid input';
+                    break;
+                }
+
+                $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
+                try {
+                    $pdo = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
+                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+                    $stmt = $pdo->prepare('INSERT INTO `user` (username, email, firstname, lastname, birthday, password) VALUES (:username, :email, :firstname, :lastname, :birthday, :password)');
+                    $stmt->bindValue(':username', $username);
+                    $stmt->bindValue(':email', $email);
+                    $stmt->bindValue(':firstname', $firstname);
+                    $stmt->bindValue(':lastname', $lastname);
+                    $stmt->bindValue(':birthday', $birthday);
+                    $stmt->bindValue(':password', $hashed_password);
+        
+                    $stmt->execute();
+                    
+                    
+                    header("Location: /");
+                    exit();
+                } catch (PDOException $e) {
+                    error_log('Database error: ' . $e->getMessage());
+                }
+            } else {
+                error(405);
+            }
+            break;
 
         // Default case: Handle all other paths by calling 'error()' function
     default:

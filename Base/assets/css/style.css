@@ -43,21 +43,6 @@ a {
   font-weight: bold;
 }
 
-.pokemoncard {
-  display: flex;
-  flex-direction: column;
-  border-color: red;
-  border-width: 2%;
-  border-style: solid;
-}
-.pokemoncard h2 a {
-  text-decoration: none;
-  color: black;
-}
-.pokemoncard img {
-  width: 180px;
-}
-
 body {
   font-family: Arial, sans-serif;
   background-color: #f7f7f7;
@@ -159,4 +144,365 @@ nav ul li a.active {
 .Create_One {
   text-decoration: none;
   color: #ffc62a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+body .dashboard {
+  display: flex;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 87vh;
+  width: 94vw;
+  /* Modal */
+}
+body .dashboard .left-panel, body .dashboard .right-panel {
+  padding: 20px;
+}
+body .dashboard .left-panel {
+  width: 30%;
+  text-align: center;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+body .dashboard .left-panel .redim-avatar-admin {
+  border-radius: 50%;
+  transform: scale(0.5);
+  height: 235px;
+}
+body .dashboard .left-panel .github-logo {
+  width: 15%;
+}
+body .dashboard .left-panel .informations-dashboard {
+  margin-bottom: 8%;
+}
+body .dashboard .left-panel .informations-dashboard div p {
+  padding-top: 2%;
+}
+body .dashboard .left-panel .informations-dashboard div img {
+  padding-top: 4%;
+}
+body .dashboard .admin-name {
+  margin: 0;
+}
+body .dashboard .admin-grade {
+  color: #888;
+}
+body .dashboard .right-panel {
+  width: 70%;
+}
+body .dashboard .right-panel .logo_pokemon {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 9%;
+}
+body .dashboard .right-panel .logo_pokemon img {
+  width: 50%;
+}
+body .dashboard .right-panel .right-panel-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-top: 8%;
+}
+body .dashboard .right-panel .container-h2-right {
+  display: flex;
+  justify-content: space-around;
+}
+body .dashboard .button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 15px;
+  margin: 10px 0;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+}
+body .dashboard .button:hover {
+  background-color: #0056b3;
+}
+body .dashboard .info {
+  background-color: #28a745;
+  color: #fff;
+  padding: 15px;
+  margin: 10px 0;
+  text-align: center;
+  border-radius: 5px;
+}
+body .dashboard .modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+body .dashboard .modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+}
+body .dashboard .close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+body .dashboard .close:hover, body .dashboard .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+main {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 5%;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.pagination {
+  list-style-type: none;
+  padding: 10px 0;
+  display: inline-flex;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+.pagination li {
+  box-sizing: border-box;
+  padding-right: 10px;
+}
+.pagination li a {
+  box-sizing: border-box;
+  background-color: #e2e6e6;
+  padding: 8px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  color: #616872;
+  border-radius: 4px;
+}
+.pagination li a:hover {
+  background-color: #d4dada;
+}
+.pagination .next a, .pagination .pagination .prev a {
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.pagination .currentpage a {
+  background-color: #518acb;
+  color: #fff;
+}
+.pagination .currentpage a:hover {
+  background-color: #518acb;
+}
+
+.goto {
+  box-sizing: border-box;
+  background-color: #e2e6e6;
+  padding: 8px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  color: #616872;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pokemon-list {
+  display: grid;
+  width: 50%;
+  grid-template-columns: repeat(3, 75%);
+  grid-template-rows: repeat(5, 600px);
+}
+
+img {
+  width: 65%;
+}
+
+.pokemonName {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.pokemon-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pokemon-image {
+  width: 200px;
+  height: 200px;
+}
+
+.types {
+  margin-bottom: 20px;
+}
+
+.type {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 3px;
+  color: white;
+  font-weight: bold;
+}
+
+.type.grass {
+  background-color: #78C850;
+}
+
+.type.poison {
+  background-color: #A040A0;
+}
+
+.type.fire {
+  background-color: #F08030;
+}
+
+.type.water {
+  background-color: #6890F0;
+}
+
+.type.electric {
+  background-color: #F8D030;
+}
+
+.type.ice {
+  background-color: #98D8D8;
+}
+
+.type.fighting {
+  background-color: #C03028;
+}
+
+.type.ground {
+  background-color: #E0C068;
+}
+
+.type.flying {
+  background-color: #A890F0;
+}
+
+.type.psychic {
+  background-color: #F85888;
+}
+
+.type.bug {
+  background-color: #A8B820;
+}
+
+.type.rock {
+  background-color: #B8A038;
+}
+
+.type.ghost {
+  background-color: #705898;
+}
+
+.type.dragon {
+  background-color: #7038F8;
+}
+
+.type.dark {
+  background-color: #705848;
+}
+
+.type.steel {
+  background-color: #9999a8;
+}
+
+.type.fairy {
+  background-color: #EE99AC;
+}
+
+.type.normal {
+  background-color: #B8B8D0;
+}
+
+.stats {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.stat span {
+  width: 100px;
+  text-align: right;
+  margin-right: 10px;
+}
+
+.bar {
+  background-color: #ddd;
+  border-radius: 5px;
+  width: 100%;
+  height: 20px;
+  margin-right: 10px;
+  overflow: hidden;
+}
+
+.fill {
+  background-color: #1c154e;
+  height: 100%;
+  text-align: right;
+  line-height: 20px;
+  color: white;
+}
+
+.evolution {
+  margin-top: 30px;
+}
+
+.evolution-chain {
+  display: flex;
+  justify-content: space-around;
+}
+
+.evolution-stage {
+  text-align: center;
+}
+
+.evolution-stage img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+}
+
+.evolution-stage p {
+  margin-top: 10px;
+  font-weight: bold;
 }/*# sourceMappingURL=style.css.map */

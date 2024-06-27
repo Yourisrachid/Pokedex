@@ -23,3 +23,8 @@ function login()
 {
     require_once __DIR__ . '/../views/partials/loginForm.php';
 }
+
+function register()
+{
+    require_once __DIR__ . '/../views/partials/registerFrom.php';
+}
