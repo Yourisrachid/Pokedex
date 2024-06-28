@@ -17,49 +17,98 @@ try {
     if ($pokemonData === null) {
         throw new Exception("JSON decoding failed.");
     }
-    $sql = "UPDATE pokemons SET pokemon_evol_id = (SELECT id FROM pokemons WHERE name_english = :evol_name LIMIT 1) WHERE name_english = :name";
+
+    $sql0 = "CREATE TABLE IF NOT EXISTS `evolution` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `pokemon_id` INT UNSIGNED,
+    `prev_id` INT UNSIGNED,
+    `next_id` INT UNSIGNED, 
+    FOREIGN KEY (`pokemon_id`) REFERENCES `pokemons`(`id`),
+    FOREIGN KEY (`prev_id`) REFERENCES `pokemons`(`id`),
+    FOREIGN KEY (`next_id`) REFERENCES `pokemons`(`id`)
+) ENGINE=InnoDB;";
+    $sql = "INSERT INTO evolution (pokemon_id, prev_id, next_id)
+SELECT 
+    (SELECT id FROM pokemons WHERE name_english = :name LIMIT 1),
+    (SELECT id FROM pokemons WHERE name_english = :prevName LIMIT 1),
+    (SELECT id FROM pokemons WHERE name_english = :nextName LIMIT 1);";
+    $sqlP = "INSERT INTO evolution (pokemon_id, prev_id)
+       SELECT 
+        (SELECT id FROM pokemons WHERE name_english = :name LIMIT 1),
+        (SELECT id FROM pokemons WHERE name_english = :prevName LIMIT 1);";
+    $sqlN = "INSERT INTO evolution (pokemon_id, next_id)
+        SELECT 
+    (SELECT id FROM pokemons WHERE name_english = :name LIMIT 1),
+    (SELECT id FROM pokemons WHERE name_english = :nextName LIMIT 1);";
     
+    $stmt0 = $pdo->prepare($sql0);
+    $stmt0->execute();
     $stmt = $pdo->prepare($sql);
+    $stmtP = $pdo->prepare($sqlP);
+    $stmtN = $pdo->prepare($sqlN);
 
     // Handle evolutions
     foreach ($pokemonData as $pokemon) {
         $name = $pokemon['name']['english'];
-        echo "name : $name";
-        $evolArray = $pokemon['evolution']['next'][0] ?? null;
-        // print_r($evolArray);
-        if ($evolArray !== null) {
-            
-            $evolId = $evolArray[0]; // Accessing the ID directly
-
-            $evolName = null;
-            // Find the evolution name using the ID
+        // echo "name : $name";
+        $prev = $pokemon['evolution']['prev'][0] ?? null;
+        $evolArray = $pokemon['evolution']['next'] ?? null;
+        $prevName = null;
+        $nextName = null;
+        
+        if ($prev !== null){
             foreach ($pokemonData as $poke) {
-                if (strval($poke['id']) == $evolId) {
-                    $evolName = $poke['name']['english'];
+                if (strval($poke['id']) == $prev) {
+                    $prevName = $poke['name']['english'];
+                    echo $name . " " . $prevName;
                     break;
                 }
             }
-
-            if ($evolName !== null) {
-                $stmt->bindValue(":evol_name", $evolName, PDO::PARAM_STR);
-                $stmt->bindValue(":name", $name, PDO::PARAM_STR);
+            if($prevName !== null && $evolArray == null){
+                $stmtP->bindValue(":name", $name, PDO::PARAM_STR);
+                $stmtP->bindValue(":prevName", $prevName, PDO::PARAM_STR);
                 try {
-                    $stmt->execute();
-                    if ($stmt->rowCount() > 0) {
-                        echo "Updated evolution for pokemon: $name -> $evolName\n";
-                    } else {
-                        echo "No evolution updated for pokemon: $name\n";
-                    }
+                    $stmtP->execute();
                 } catch (PDOException $e) {
                     echo "Error updating evolution for pokemon: " . $e->getMessage() . "\n";
                 }
-            } else {
-                echo "Evolution name not found for pokemon: $name\n";
             }
         }
-    }
-    
+        
+        if ($evolArray !== null) { 
+        
+            foreach ($evolArray as $evol){
+                $evolId = $evol[0];
+                foreach ($pokemonData as $poke) {
+                    if (strval($poke['id']) == $evolId) {
+                        $nextName = $poke['name']['english'];
+                        break;
+                    }
+                }
+                if ($nextName !== null && $prevName !== null){
+                    $stmt->bindValue(":name", $name, PDO::PARAM_STR);
+                    $stmt->bindValue(":prevName", $prevName, PDO::PARAM_STR);
+                    $stmt->bindValue(":nextName", $nextName, PDO::PARAM_STR);
+                    try {
+                        $stmt->execute();
+                    } catch (PDOException $e) {
+                        echo "Error updating evolution for pokemon: " . $e->getMessage() . "\n";
+                    }
+                }elseif ($nextName !== null && $prevName == null){
+                    $stmtN->bindValue(":name", $name, PDO::PARAM_STR);
+                    $stmtN->bindValue(":nextName", $nextName, PDO::PARAM_STR);
+                    try {
+                        $stmtN->execute();
+                    } catch (PDOException $e) {
+                        echo "Error updating evolution for pokemon: " . $e->getMessage() . "\n";
+                    }
+                } 
 
+            }
+        }
+        
+
+    }
     echo "Data inserted successfully!";
 
 } catch (PDOException $e) {
