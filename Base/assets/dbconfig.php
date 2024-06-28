@@ -2,7 +2,7 @@
 
 define('DBHOST', 'localhost');
 define('DBNAME', 'pokedexnew');
-define('DBUSER', 'youris');
-define('DBPASS', 'youris');
+define('DBUSER', 'becode');
+define('DBPASS', 'becode');
 
 
