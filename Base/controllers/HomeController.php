@@ -28,3 +28,8 @@ function register()
 {
     require_once __DIR__ . '/../views/partials/registerFrom.php';
 }
+
+function dashboard()
+{
+    require_once __DIR__ . '/../views/admin/dashboard.php';
+}
