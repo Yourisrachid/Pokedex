@@ -83,7 +83,6 @@ nav ul li .active {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
 }
 
 .login-container,
