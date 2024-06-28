@@ -19,7 +19,7 @@
                 <?php if (isset($_SESSION['user'])) {
                 ?>
                 <form action="/logout" method="post">
-                    <button type="submit" name="logout">Log Out</button>
+                    <button class="logout" type="submit" name="logout">Log Out</button>
                 </form>
             <?php } else { ?>
                 <li><?php echoLink('/register', 'Register'); ?></li>

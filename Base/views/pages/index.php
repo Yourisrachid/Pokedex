@@ -227,9 +227,9 @@ try {
 
     <div class="pokemon-list">
         <?php while ($pokemon = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
-            <div class="pokemoncard">
+            <a class="pokelink" href="/pokemon?name=<?php echo urlencode(strtolower($pokemon['name_english'])); ?>"><div class="pokemoncard">
 
-                <h2><a class="pokemonName" href="/pokemon?name=<?php echo urlencode(strtolower($pokemon['name_english'])); ?>"><?php echo htmlspecialchars($pokemon['name_english']); ?></a></h2>
+                <h2><p class="pokemonName"><?php echo htmlspecialchars($pokemon['name_english']); ?></p></h2>
                 <div class="types">
                     <?php 
                     $types = explode(', ', $pokemon['types']); 
@@ -238,7 +238,7 @@ try {
                     <?php endforeach; ?>
                 </div>
                 <img src="./public/img/pokemon/<?php echo strtolower($pokemon['name_english']); ?>.png" alt="<?php echo htmlspecialchars($pokemon['name_english']); ?>">
-            </div>
+            </div></a>
         <?php endwhile; ?>
     </div>
     

@@ -37,6 +37,17 @@ main {
         font-size: 18px;
         margin-bottom: 10px;
     }
+
+
+    &:hover {
+        transition: all .2s ease-in-out;
+        transform: scale(1.1);
+    }
+
+    &:active {
+        transition: all .2s ease-in-out;
+        transform: scale(1.05);
+    }
 }
 
 
@@ -124,6 +135,9 @@ main {
 
 .pagination {
     text-align: center;
+}
 
 
+.pokelink {
+    text-decoration:none;
 }

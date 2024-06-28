@@ -33,6 +33,16 @@ body .navbar input[type=text] {
 body .navbar.dark {
   background-color: #555;
 }
+body .logout {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  font-size: 16px;
+}
 
 body {
   background-color: #f1f1f1;
@@ -176,6 +186,14 @@ main {
   font-size: 18px;
   margin-bottom: 10px;
 }
+.pokemoncard:hover {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.1);
+}
+.pokemoncard:active {
+  transition: all 0.2s ease-in-out;
+  transform: scale(1.05);
+}
 
 .pages {
   list-style-type: none;
@@ -250,12 +268,16 @@ main {
   text-align: center;
 }
 
+.pokelink {
+  text-decoration: none;
+}
+
 .pokemonName {
   display: inline-block;
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
+  background-color: #3c5aa6;
+  color: #ffcb05;
   text-decoration: none;
   border-radius: 5px;
 }
@@ -559,4 +581,4 @@ main {
   border-color: rgba(81, 138, 203, 0.4);
   background-color: #fff;
   box-shadow: 0 0 0 4px rgba(81, 138, 203, 0.129);
-}
+}/*# sourceMappingURL=style.css.map */

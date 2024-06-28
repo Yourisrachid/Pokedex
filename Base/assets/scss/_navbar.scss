@@ -43,4 +43,18 @@ body {
         
     }
     
+
+    .logout {
+        background: none;
+        color: inherit;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        font : {
+            family: Arial, sans-serif;
+            weight: bold;
+            size: 16px;
+        }
+
+    }
 }

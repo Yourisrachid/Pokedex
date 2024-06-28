@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="logo_pokemon">
                     <img src="../../public/img/pokemon-logo.png" alt="Pokémon Logo">
                 </div>
-                <?php if (isset($_SESSION['user']) && $_SESSION['admin'] === '1') {
+                <?php if (isset($_SESSION['user']) && $_SESSION['admin'] == 1) {
                 ?>
                 <div class="container-h2-right">
                     <h2>Dashboard - Admin</h2>
