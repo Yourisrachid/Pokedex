@@ -87,7 +87,6 @@ nav ul li a.active {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
 }
 
 .login-container,
@@ -505,4 +504,4 @@ img {
 .evolution-stage p {
   margin-top: 10px;
   font-weight: bold;
-}/*# sourceMappingURL=style.css.map */
+}

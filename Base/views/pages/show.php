@@ -3,7 +3,7 @@ $title = $_GET['name'];
 require_once __DIR__ . '../../partials/header.php';
 
 
-require './assets/dbconfig.php';
+//require './assets/dbconfig.php';
 
 try {
     $pdo = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);

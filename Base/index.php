@@ -61,7 +61,7 @@ switch ($url['path']) {
                 $pdo = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
-                $stmt = $pdo->prepare('SELECT * FROM user WHERE username = :username');
+                $stmt = $pdo->prepare('SELECT username, password FROM user WHERE username = :username');
                 $stmt->bindParam(':username', $username);
                 $stmt->execute();
         
@@ -101,6 +101,7 @@ switch ($url['path']) {
             break;
 
         case '/addUser':
+            session_start();
             if ($method == 'POST' && isset($_POST['username']) && isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['birthday']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password-verification'])) {
                 $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
                 $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
@@ -126,6 +127,16 @@ switch ($url['path']) {
                     $pdo = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
                     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
+                    // Vérifier si le nom d'utilisateur existe déjà
+                    $stmt = $pdo->prepare('SELECT * FROM `user` WHERE username = :username');
+                    $stmt->bindValue(':username', $username);
+                    $stmt->execute();
+        
+                    if ($stmt->rowCount() > 0) {
+                        echo 'Ce nom d\'utilisateur est déjà pris. Veuillez en choisir un autre.';
+                        break;
+                    }
+        
                     $stmt = $pdo->prepare('INSERT INTO `user` (username, email, firstname, lastname, birthday, password) VALUES (:username, :email, :firstname, :lastname, :birthday, :password)');
                     $stmt->bindValue(':username', $username);
                     $stmt->bindValue(':email', $email);
@@ -134,16 +145,30 @@ switch ($url['path']) {
                     $stmt->bindValue(':birthday', $birthday);
                     $stmt->bindValue(':password', $hashed_password);
         
-                    $stmt->execute();
-                    
-                    
-                    header("Location: /");
-                    exit();
+                    if ($stmt->execute()) {
+                        $userId = $pdo->lastInsertId();
+        
+                        $stmt = $pdo->prepare('SELECT * FROM `user` WHERE id = :id');
+                        $stmt->bindValue(':id', $userId);
+                        $stmt->execute();
+        
+                        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                        if ($user) {
+                            $_SESSION['user'] = $user;
+                            header("Location: /");
+                            exit();
+                        } else {
+                            echo 'Erreur lors de la récupération des informations utilisateur';
+                        }
+                    } else {
+                        echo 'Erreur lors de l\'inscription';
+                    }
                 } catch (PDOException $e) {
-                    error_log('Database error: ' . $e->getMessage());
+                    echo 'Erreur lors de l\'inscription : ' . $e->getMessage();
                 }
             } else {
-                error(405);
+                echo 'Invalid input';
             }
             break;
 
