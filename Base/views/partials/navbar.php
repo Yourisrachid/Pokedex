@@ -14,9 +14,12 @@
                 <button type="submit" name="logout">Déconnexion</button>
                 </form>
                 <?php
-                } 
+                } else {
                 ?>
                 <li><a href="/register">Register</a></li>
+                <?php
+                } 
+                ?>
             </ul>
         </div>
 
