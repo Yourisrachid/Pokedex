@@ -8,7 +8,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-    $stmt = $pdo->prepare("SELECT * FROM Pokedex WHERE LOWER(`name.english`) = ?");
+    $stmt = $pdo->prepare("SELECT * FROM pokemons WHERE LOWER(`name_english`) = ?");
     $stmt->execute([strtolower($_GET['name'])]);
     $pokemon = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -18,7 +18,7 @@ try {
 
 
     function fetchPokemonById($pdo, $id) {
-        $stmt = $pdo->prepare("SELECT * FROM Pokedex WHERE id = ?");
+        $stmt = $pdo->prepare("SELECT * FROM pokemons WHERE id = ?");
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -84,8 +84,8 @@ try {
 
 <main>
     <div class="pokemon-header">
-        <h1><?php echo htmlspecialchars($pokemon['name.english']); ?></h1>
-        <img class="pokemon-image" src="<?php echo htmlspecialchars($pokemon['image.hires']); ?>" alt="<?php echo htmlspecialchars($pokemon['name.english']); ?>">
+        <h1><?php echo htmlspecialchars($pokemon['name_english']); ?></h1>
+        <img class="pokemon-image" src="./public/img/pokemon/<?php echo strtolower($pokemon['name_english']); ?>.png" alt="<?php echo htmlspecialchars($pokemon['name.english']); ?>">
     </div>
     
     <div class="pokemon-details">
@@ -102,44 +102,44 @@ try {
             <div class="stat">
                 <span>HP</span>
                 <div class="bar">
-                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['base.HP']); ?>%;"></div>
+                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['hp']); ?>%;"></div>
                 </div>
-                <span><?php echo htmlspecialchars($pokemon['base.HP']); ?></span>
+                <span><?php echo htmlspecialchars($pokemon['hp']); ?></span>
             </div>
             <div class="stat">
                 <span>Attack</span>
                 <div class="bar">
-                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['base.Attack']); ?>%; ?>"></div>
+                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['attack']); ?>%; ?>"></div>
                 </div>
-                <span><?php echo htmlspecialchars($pokemon['base.Attack']); ?></span>
+                <span><?php echo htmlspecialchars($pokemon['attack']); ?></span>
             </div>
             <div class="stat">
                 <span>Defense</span>
                 <div class="bar">
-                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['base.Defense']); ?>%; ?>"></div>
+                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['defense']); ?>%; ?>"></div>
                 </div>
-                <span><?php echo htmlspecialchars($pokemon['base.Defense']); ?></span>
+                <span><?php echo htmlspecialchars($pokemon['defense']); ?></span>
             </div>
             <div class="stat">
                 <span>Sp. Att.</span>
                 <div class="bar">
-                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['base.Sp. Attack']); ?>%; ?>"></div>
+                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['special_attack']); ?>%; ?>"></div>
                 </div>
-                <span><?php echo htmlspecialchars($pokemon['base.Sp. Attack']); ?></span>
+                <span><?php echo htmlspecialchars($pokemon['special_attack']); ?></span>
             </div>
             <div class="stat">
                 <span>Sp. Def.</span>
                 <div class="bar">
-                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['base.Sp. Defense']); ?>%; ?>"></div>
+                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['special_defense']); ?>%; ?>"></div>
                 </div>
-                <span><?php echo htmlspecialchars($pokemon['base.Sp. Defense']); ?></span>
+                <span><?php echo htmlspecialchars($pokemon['special_defense']); ?></span>
             </div>
             <div class="stat">
                 <span>Speed</span>
                 <div class="bar">
-                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['base.Speed']); ?>%; ?>"></div>
+                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['speed']); ?>%; ?>"></div>
                 </div>
-                <span><?php echo htmlspecialchars($pokemon['base.Speed']); ?></span>
+                <span><?php echo htmlspecialchars($pokemon['speed']); ?></span>
             </div>
         </div>
     </div>
@@ -149,9 +149,10 @@ try {
         <div class="evolution-chain">
             <?php foreach ($evolutionCycle as $evolutionStage): ?>
                 <div class="evolution-stage">
-                    <a class="pokemonEvolution" href="pokemon?name=<?php echo strtolower(htmlspecialchars($evolutionStage['name.english'])); ?>">
-                        <img src="<?php echo htmlspecialchars($evolutionStage['image.hires']); ?>" alt="<?php echo htmlspecialchars($evolutionStage['name.english']); ?>">
-                        <p><?php echo htmlspecialchars($evolutionStage['name.english']); ?></p>
+                    <a class="pokemonEvolution" href="pokemon?name=<?php echo strtolower(htmlspecialchars($evolutionStage['name_english'])); ?>">
+                        <img src="./public/img/pokemon/<?php echo strtolower($evolutionStage['name_english']); ?>.png" alt="<?php echo htmlspecialchars($evolutionStage['name_english']); ?>">
+                        <p><?php echo htmlspecialchars($evolutionStage['name_english']); ?></p>
+                        
                     </a>
                 </div>
             <?php endforeach; ?>
