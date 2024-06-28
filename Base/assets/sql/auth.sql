@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `lastname` varchar(255) CHARACTER SET utf8 NOT NULL,
   `birthday` DATE NOT NULL,
   `password` varchar(255) NOT NULL,
+  `favorite` JSON,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
