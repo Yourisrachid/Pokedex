@@ -172,6 +172,13 @@ switch ($url['path']) {
             }
             break;
 
+        case '/dashboard':
+            if ($method == 'GET') {
+                require 'controllers/HomeController.php';
+                dashboard();
+            } else error(405);
+            break;
+
         // Default case: Handle all other paths by calling 'error()' function
     default:
         error();

@@ -7,7 +7,16 @@
         <div class="links">
             <ul>
                 <li><a href="/">Pokemon</a></li>
+                <?php if (isset($_SESSION['user'])) {
+                ?>
+                <li><a href="/dashboard" class="active">Dashboard</a></li>
+                <?php
+                } else {
+                ?>
                 <li><a href="/login" class="active">My Account</a></li>
+                <?php
+                } 
+                ?>
                 <?php if (isset($_SESSION['user'])) {
                 ?>
                 <form action="/logout" method="post">

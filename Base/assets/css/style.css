@@ -30,7 +30,7 @@ body .navbar input[type=text] {
   padding: 5px;
   margin-right: 20px;
 }
-body .navbar.dark .profile {
+body .navbar.dark {
   background-color: #555;
 }
 

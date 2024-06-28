@@ -1,0 +1,333 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+  /* Modal */
+}
+body .dashboard {
+  display: flex;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 87vh;
+  width: 94vw;
+}
+body .dashboard .left-panel, body .dashboard .right-panel {
+  padding: 20px;
+}
+body .dashboard .left-panel {
+  width: 30%;
+  text-align: center;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+body .dashboard .redim-avatar-admin {
+  border-radius: 50%;
+  transform: scale(0.5);
+  height: 235px;
+}
+body .dashboard .github-logo {
+  width: 15%;
+}
+body .dashboard .informations-dashboard {
+  margin-bottom: 8%;
+}
+body .dashboard .informations-dashboard div p {
+  padding-top: 2%;
+}
+body .dashboard .informations-dashboard div img {
+  padding-top: 4%;
+}
+body .dashboard .admin-name {
+  margin: 0;
+}
+body .dashboard .admin-grade {
+  color: #888;
+}
+body .dashboard .right-panel {
+  width: 70%;
+}
+body .dashboard .logo_pokemon {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 9%;
+}
+body .dashboard .logo_pokemon img {
+  width: 50%;
+}
+body .dashboard .right-panel-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-top: 8%;
+}
+body .dashboard .container-h2-right {
+  display: flex;
+  justify-content: space-around;
+}
+body .dashboard .button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 15px;
+  margin: 10px 0;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+}
+body .dashboard .button:hover {
+  background-color: #0056b3;
+}
+body .dashboard .info {
+  background-color: #28a745;
+  color: #fff;
+  padding: 15px;
+  margin: 10px 0;
+  text-align: center;
+  border-radius: 5px;
+}
+body .modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Formulaire Pokémon */
+  /* Styles for Pokémon Types */
+  /* Inline Checkbox Items */
+  /* Custom Button */
+  /* Stylisation des checkboxes */
+}
+body .modal .modal-content {
+  display: none;
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+}
+body .modal .close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+body .modal .close:hover, body .modal .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+body .modal h1 {
+  font-size: 2.5em;
+  color: #e62117; /* Pokémon red */
+}
+body .modal .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+body .modal #species-group {
+  display: flex;
+  flex-direction: row;
+}
+body .modal #species-group .radio-species {
+  display: flex;
+  align-items: baseline;
+}
+body .modal #species-group .radio-species input[type=radio] {
+  margin-left: 10%;
+  margin-right: 13%;
+}
+body .modal #species-group .radio-species label {
+  margin-left: 14%;
+}
+body .modal label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #0047AB; /* Pokémon blue */
+}
+body .modal input[type=text], body .modal input[type=number], body .modal textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+body .modal textarea {
+  resize: vertical;
+}
+body .modal button[type=submit] {
+  background-color: #ffcc00; /* Pikachu yellow */
+  color: #000;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+body .modal button[type=submit]:hover {
+  background-color: #ffc000; /* Darker Pikachu yellow on hover */
+}
+body .modal #pokemon-types {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1 1 100px;
+}
+body .modal .checkbox-item {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+body .modal .checkbox-item input {
+  margin-right: 5px;
+}
+body .modal .custom-button {
+  display: inline-block;
+}
+body .modal .custom-button input[type=checkbox] {
+  display: none;
+}
+body .modal .custom-button .button-label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-image: url(../../public/img/type/water.png); /* Modifier l'image de fond */
+  background-repeat: no-repeat;
+  background-size: contain;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  padding-right: 0;
+}
+body .modal .custom-checkbox-group input[type=checkbox] {
+  position: absolute;
+  left: -9999px; /* Cacher l'input checkbox */
+}
+body .modal .custom-checkbox-group label {
+  display: inline-flex;
+  padding: 14px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+body .modal .custom-checkbox-group #Water {
+  background-image: url(../../public/img/type/water.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Normal {
+  background-image: url(../../public/img/type/normal.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Fire {
+  background-image: url(../../public/img/type/fire.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Electric {
+  background-image: url(../../public/img/type/electrik.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Grass {
+  background-image: url(../../public/img/type/plante.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Ice {
+  background-image: url(../../public/img/type/glace.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Fighting {
+  background-image: url(../../public/img/type/combat.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Poison {
+  background-image: url(../../public/img/type/poison.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Ground {
+  background-image: url(../../public/img/type/sol.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Flying {
+  background-image: url(../../public/img/type/vol.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Psychic {
+  background-image: url(../../public/img/type/psy.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #water {
+  background-image: url(../../public/img/type/water.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Bug {
+  background-image: url(../../public/img/type/insecte.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Rock {
+  background-image: url(../../public/img/type/roche.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Ghost {
+  background-image: url(../../public/img/type/spectre.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Dragon {
+  background-image: url(../../public/img/type/dragon.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Dark {
+  background-image: url(../../public/img/type/tenebre.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Steel {
+  background-image: url(../../public/img/type/acier.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group #Fairy {
+  background-image: url(../../public/img/type/fee.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+body .modal .custom-checkbox-group input[type=checkbox]:checked + label {
+  border-radius: 14px;
+  border-width: 3px;
+  background-color: #f20000; /* Couleur de fond lorsque coché */
+}
