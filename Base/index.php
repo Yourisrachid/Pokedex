@@ -61,7 +61,7 @@ switch ($url['path']) {
                 $pdo = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
-                $stmt = $pdo->prepare('SELECT username, password FROM user WHERE username = :username');
+                $stmt = $pdo->prepare('SELECT username, password, admin FROM user WHERE username = :username');
                 $stmt->bindParam(':username', $username);
                 $stmt->execute();
         
@@ -71,6 +71,8 @@ switch ($url['path']) {
                 if ($user && password_verify($password, $user['password'])) {
                     session_start();
                     $_SESSION['user'] = $user;
+                    $_SESSION['admin'] = $user['admin'];
+                    $_SESSION['username'] = $user['username'];
                     header("Location: /");
                     exit();
                 } else {

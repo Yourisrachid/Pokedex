@@ -56,7 +56,6 @@ header {
   text-align: center;
   border-bottom: 1px solid #ddd;
 }
-
 header img {
   height: 60px;
 }
@@ -68,18 +67,15 @@ nav ul {
   justify-content: center;
   margin: 10px 0 0;
 }
-
 nav ul li {
   margin: 0 15px;
 }
-
 nav ul li a {
   text-decoration: none;
   color: #000;
   font-weight: bold;
 }
-
-nav ul li a.active {
+nav ul li .active {
   color: #fecd43;
 }
 
@@ -153,6 +149,32 @@ main {
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  text-align: center;
+}
+
+.pokemoncard {
+  text-align: center;
+  max-width: 100%;
+  background-color: #d4d4d4;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 10px;
+  text-align: center;
+}
+.pokemoncard img {
+  width: 100px;
+  margin-bottom: 10px;
+}
+.pokemoncard .types {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.pokemoncard .pokemonName {
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
 .pagination {
@@ -202,16 +224,26 @@ main {
   border-radius: 4px;
   cursor: pointer;
 }
+.goto:hover {
+  background-color: #d4dada;
+}
 
 .pokemon-list {
   display: grid;
   width: 50%;
-  grid-template-columns: repeat(3, 75%);
-  grid-template-rows: repeat(5, 600px);
+  grid-template-columns: repeat(3, 60%);
+  grid-template-rows: repeat(5, 20%);
+  margin-left: 5%;
 }
 
-img {
-  width: 65%;
+.dark {
+  background-color: black;
+}
+.dark main {
+  background-color: #43464b;
+}
+.dark .search-block form {
+  background-color: #43464b;
 }
 
 .pokemonName {
@@ -377,4 +409,78 @@ img {
 .evolution-stage p {
   margin-top: 10px;
   font-weight: bold;
+}
+
+.search-container {
+  position: relative;
+}
+
+#search-block {
+  text-align: center;
+  margin-left: 5%;
+  display: flex;
+  flex-direction: column;
+  top: 20px;
+  width: 85%;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: max-height 0.5s ease-out;
+}
+
+.search-block form {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-block input[type=text] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.search-block input[type=number],
+.search-block select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.search-block input[type=submit] {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #007BFF;
+  color: white;
+  cursor: pointer;
+}
+
+#toggle-advanced-search {
+  cursor: pointer;
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  border: none;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.advanced-search {
+  display: none;
+  margin-top: 10px;
+}
+
+.advanced-search.hidden {
+  display: none;
+}
+
+.advanced-search.visible {
+  display: block;
+}
+
+.hidden {
+  display: none;
 }

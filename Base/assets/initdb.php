@@ -7,7 +7,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Path to JSON file
-    $jsonFilePath = 'pokedex.json';
+    $jsonFilePath = './pokedex.json';
     // Read JSON file
     $jsonData = file_get_contents($jsonFilePath);
     if ($jsonData === false) {
@@ -113,5 +113,3 @@ try {
 } catch (Exception $e) {
     echo "General error: " . $e->getMessage();
 }
-
-?>

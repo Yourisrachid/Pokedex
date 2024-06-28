@@ -1,6 +1,6 @@
-import { printAddPokemonForm } from "./select.js";
-printAddPokemonForm();
+import { search } from './modules/search.js';
+import { darkMode } from './modules/darkMode.js';
 
+darkMode();
+search();
 
-import {closeAddPokemonForm} from "./select.js";
-closeAddPokemonForm();

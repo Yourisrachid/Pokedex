@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 try {
     $pdo = new PDO("mysql:host=" . DBHOST . ";dbname=" . DBNAME, DBUSER, DBPASS);
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
-    <script defer src="../../assets/js/select.js"></script>
+    <script defer type="module" src="../../assets/js/maindashboard.js"></script>
     <title>Document</title>
 </head>
 
@@ -110,8 +110,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
                 <div>
                     <img class="redim-avatar-admin" src="../../public/img/man1.png" alt="Pokémon Logo" alt="">
-                    <h2 class="admin-name">Nom de l'Admin</h2>
-                    <p class="admin-grade">Grade Admin</p>
+                    <h2 class="admin-name"><?php print_r($_SESSION['username']); ?></h2>
+                    <p class="admin-grade"> <br> </p>
                 </div>
                 <div class="informations-dashboard">
                     <h2>Informations</h2>
@@ -127,6 +127,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="logo_pokemon">
                     <img src="../../public/img/pokemon-logo.png" alt="Pokémon Logo">
                 </div>
+                <?php if (isset($_SESSION['user']) && $_SESSION['admin'] === '1') {
+                ?>
                 <div class="container-h2-right">
                     <h2>Dashboard - Admin</h2>
                 </div>
@@ -135,6 +137,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="button" id="delete-button">Supprimer un pokémon</div>
                     <div class="info" id="total-pokemon">Nombre total de Pokémon : <?php echo $count; ?></div>
                 </div>
+                <?php
+                } else {
+                ?>
+                <h2>...</h2>
+                <?php
+                } 
+                ?>
             </div>
         </div>
 

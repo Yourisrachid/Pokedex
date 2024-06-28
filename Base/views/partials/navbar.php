@@ -1,5 +1,4 @@
-
-    <nav class="navbar">
+<nav class="navbar">
         <div class="left-section">
             <a href="/"><img src="../../public/img/pokemon-logo.png" alt="Pokémon Logo"></a>
         </div>
@@ -20,40 +19,27 @@
                 <?php if (isset($_SESSION['user'])) {
                 ?>
                 <form action="/logout" method="post">
-                <button type="submit" name="logout">Déconnexion</button>
+                    <button type="submit" name="logout">Log Out</button>
                 </form>
-                <?php
-                } else {
-                ?>
-                <li><a href="/register">Register</a></li>
-                <?php
-                } 
-                ?>
-            </ul>
-        </div>
+            <?php } else { ?>
+                <li><?php echoLink('/register', 'Register'); ?></li>
+            <?php } ?>
+        </ul>
+    </div>
 
-
-        <div class="right-section">
-            <div class="toggle-darkmode">🌙</div>
-        </div>
-    </nav>
+    <div class="right-section">
+        <div class="toggle-darkmode">🌙</div>
+    </div>
+</nav>
 
 
 
-    <script>
-        const toggleDarkMode = document.querySelector('.toggle-darkmode');
-        const navbar = document.querySelector('.navbar');
-        let darkMode = false;
+<?php
+$current_page = basename($_SERVER['REQUEST_URI']);
 
-        toggleDarkMode.addEventListener('click', () => {
-            darkMode = !darkMode;
-            if (darkMode) {
-                navbar.classList.add('dark');
-                toggleDarkMode.textContent = '☀️';
-            } else {
-                navbar.classList.remove('dark');
-                toggleDarkMode.textContent = '🌙';
-            }
-        });
-    </script>
-
+function echoLink($url, $text) {
+    global $current_page;
+    $class = (basename($url) == $current_page) ? 'class="active"' : '';
+    echo "<a href=\"$url\" $class>$text</a>";
+}
+?>

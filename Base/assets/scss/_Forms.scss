@@ -10,32 +10,35 @@ header {
     padding: 20px;
     text-align: center;
     border-bottom: 1px solid #ddd;
+
+    img {
+        height: 60px;
+    }
 }
 
-header img {
-    height: 60px;
-}
+nav {
+    ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        margin: 10px 0 0;
 
-nav ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    margin: 10px 0 0;
-}
+        li {
+            margin: 0 15px;
 
-nav ul li {
-    margin: 0 15px;
-}
+            a {
+                text-decoration: none;
+                color: #000;
+                font-weight: bold;
 
-nav ul li a {
-    text-decoration: none;
-    color: #000;
-    font-weight: bold;
-}
+            }
 
-nav ul li a.active {
-    color: #fecd43;
+            .active {
+                color: #fecd43;
+            }
+        }
+    }
 }
 
 .form-main {

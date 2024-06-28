@@ -2,15 +2,18 @@
 $title = $_GET['name'];
 require_once __DIR__ . '../../partials/header.php';
 
-
-//require './assets/dbconfig.php';
-
 try {
-    $pdo = new PDO("mysql:host=".DBHOST.";dbname=".DBNAME, DBUSER, DBPASS);
+    $pdo = new PDO("mysql:host=" . DBHOST . ";dbname=" . DBNAME, DBUSER, DBPASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-
-    $stmt = $pdo->prepare("SELECT * FROM Pokedex WHERE LOWER(`name.english`) = ?");
+    $stmt = $pdo->prepare("
+        SELECT pokemons.*, GROUP_CONCAT(types.type SEPARATOR ', ') as types
+        FROM pokemons
+        LEFT JOIN pokemon_types ON pokemons.id = pokemon_types.pokemon_id
+        LEFT JOIN types ON pokemon_types.type_id = types.id
+        WHERE LOWER(pokemons.name_english) = ?
+        GROUP BY pokemons.id
+    ");
     $stmt->execute([strtolower($_GET['name'])]);
     $pokemon = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -18,33 +21,32 @@ try {
         die("Pokemon not found.");
     }
 
-
     function fetchPokemonById($pdo, $id) {
-        $stmt = $pdo->prepare("SELECT * FROM Pokedex WHERE id = ?");
+        $stmt = $pdo->prepare("
+            SELECT pokemons.*, GROUP_CONCAT(types.type SEPARATOR ', ') as types
+            FROM pokemons
+            LEFT JOIN pokemon_types ON pokemons.id = pokemon_types.pokemon_id
+            LEFT JOIN types ON pokemon_types.type_id = types.id
+            WHERE pokemons.id = ?
+            GROUP BY pokemons.id
+        ");
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-
     function getFullEvolutionCycle($pdo, $pokemon) {
         $evolutionCycle = [];
         $visited = [];
-    
 
         function fetchEvolutions($pdo, $pokemon, &$evolutionCycle, &$visited, $direction) {
-            $evolutionData = ($direction == 'prev') ? 'evolution.prev' : 'evolution.next';
-            
-
+            $evolutionData = ($direction == 'prev') ? 'prev_evolutions' : 'next_evolutions';
             if (!empty($pokemon[$evolutionData])) {
                 $evolutionIds = json_decode($pokemon[$evolutionData], true);
-                
-
                 foreach ($evolutionIds as $evolutionId) {
-                    if (!in_array($evolutionId[0], $visited)) {
-                        $nextPokemon = fetchPokemonById($pdo, $evolutionId[0]);
+                    if (!in_array($evolutionId, $visited)) {
+                        $nextPokemon = fetchPokemonById($pdo, $evolutionId);
                         if ($nextPokemon) {
                             $visited[] = $nextPokemon['id'];
-
                             fetchEvolutions($pdo, $nextPokemon, $evolutionCycle, $visited, $direction);
                             $evolutionCycle[] = $nextPokemon;
                         }
@@ -52,30 +54,19 @@ try {
                 }
             }
         }
-    
 
         $evolutionCycle[] = $pokemon;
         $visited[] = $pokemon['id'];
-    
 
         fetchEvolutions($pdo, $pokemon, $evolutionCycle, $visited, 'prev');
-        
-
         fetchEvolutions($pdo, $pokemon, $evolutionCycle, $visited, 'next');
-    
-
 
         usort($evolutionCycle, function($a, $b) {
             return $a['id'] - $b['id'];
         });
 
-    
         return $evolutionCycle;
     }
-    
-    
-    
-
 
     $evolutionCycle = getFullEvolutionCycle($pdo, $pokemon);
 
@@ -86,14 +77,14 @@ try {
 
 <main>
     <div class="pokemon-header">
-        <h1><?php echo htmlspecialchars($pokemon['name.english']); ?></h1>
-        <img class="pokemon-image" src="<?php echo htmlspecialchars($pokemon['image.hires']); ?>" alt="<?php echo htmlspecialchars($pokemon['name.english']); ?>">
+        <h1><?php echo htmlspecialchars($pokemon['name_english']); ?></h1>
+        <img class="pokemon-image" src="./public/img/pokemon/<?php echo strtolower($pokemon['name_english']); ?>.png" alt="<?php echo htmlspecialchars($pokemon['name_english']); ?>">
     </div>
     
     <div class="pokemon-details">
         <div class="types">
             <?php 
-                $types = json_decode($pokemon['type'], true);
+                $types = explode(', ', $pokemon['types']);
                 foreach ($types as $type) {
                     echo '<span class="type ' . strtolower($type) . '">' . htmlspecialchars($type) . '</span>';
                 }
@@ -101,48 +92,19 @@ try {
         </div>
         
         <div class="stats">
-            <div class="stat">
-                <span>HP</span>
-                <div class="bar">
-                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['base.HP']); ?>%;"></div>
-                </div>
-                <span><?php echo htmlspecialchars($pokemon['base.HP']); ?></span>
-            </div>
-            <div class="stat">
-                <span>Attack</span>
-                <div class="bar">
-                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['base.Attack']); ?>%; ?>"></div>
-                </div>
-                <span><?php echo htmlspecialchars($pokemon['base.Attack']); ?></span>
-            </div>
-            <div class="stat">
-                <span>Defense</span>
-                <div class="bar">
-                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['base.Defense']); ?>%; ?>"></div>
-                </div>
-                <span><?php echo htmlspecialchars($pokemon['base.Defense']); ?></span>
-            </div>
-            <div class="stat">
-                <span>Sp. Att.</span>
-                <div class="bar">
-                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['base.Sp. Attack']); ?>%; ?>"></div>
-                </div>
-                <span><?php echo htmlspecialchars($pokemon['base.Sp. Attack']); ?></span>
-            </div>
-            <div class="stat">
-                <span>Sp. Def.</span>
-                <div class="bar">
-                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['base.Sp. Defense']); ?>%; ?>"></div>
-                </div>
-                <span><?php echo htmlspecialchars($pokemon['base.Sp. Defense']); ?></span>
-            </div>
-            <div class="stat">
-                <span>Speed</span>
-                <div class="bar">
-                    <div class="fill" style="width: <?php echo htmlspecialchars($pokemon['base.Speed']); ?>%; ?>"></div>
-                </div>
-                <span><?php echo htmlspecialchars($pokemon['base.Speed']); ?></span>
-            </div>
+            <?php 
+                $stats = ['hp' => 'HP', 'attack' => 'Attack', 'defense' => 'Defense', 'special_attack' => 'Sp. Att.', 'special_defense' => 'Sp. Def.', 'speed' => 'Speed'];
+                foreach ($stats as $key => $label) {
+                    echo '
+                    <div class="stat">
+                        <span>' . $label . '</span>
+                        <div class="bar">
+                            <div class="fill" style="width: ' . htmlspecialchars($pokemon[$key]) . '%;"></div>
+                        </div>
+                        <span>' . htmlspecialchars($pokemon[$key]) . '</span>
+                    </div>';
+                }
+            ?>
         </div>
     </div>
 
@@ -151,9 +113,9 @@ try {
         <div class="evolution-chain">
             <?php foreach ($evolutionCycle as $evolutionStage): ?>
                 <div class="evolution-stage">
-                    <a class="pokemonEvolution" href="pokemon?name=<?php echo strtolower(htmlspecialchars($evolutionStage['name.english'])); ?>">
-                        <img src="<?php echo htmlspecialchars($evolutionStage['image.hires']); ?>" alt="<?php echo htmlspecialchars($evolutionStage['name.english']); ?>">
-                        <p><?php echo htmlspecialchars($evolutionStage['name.english']); ?></p>
+                    <a class="pokemonEvolution" href="pokemon?name=<?php echo strtolower(htmlspecialchars($evolutionStage['name_english'])); ?>">
+                        <img src="./public/img/pokemon/<?php echo strtolower($evolutionStage['name_english']); ?>.png" alt="<?php echo htmlspecialchars($evolutionStage['name_english']); ?>">
+                        <p><?php echo htmlspecialchars($evolutionStage['name_english']); ?></p>
                     </a>
                 </div>
             <?php endforeach; ?>
@@ -163,6 +125,4 @@ try {
     <a class="pokemonName" href="/">Homepage</a>
 </main>
 
-<?php
-require_once __DIR__ . '../../partials/footer.php';
-?>
+<?php require_once __DIR__ . '../../partials/footer.php'; ?>
