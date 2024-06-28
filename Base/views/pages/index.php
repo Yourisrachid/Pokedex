@@ -121,13 +121,13 @@ try {
                 <input type="text" name="search" placeholder="Search Pokémon" value="<?php echo htmlspecialchars($search); ?>">
                 <button type="button" id="toggle-advanced-search">Advanced search options</button>
                 <div id="advanced-search" class="advanced-search hidden">
-                    <label>Minimum Hp: <input type="number" name="min_hp" value="<?php echo htmlspecialchars($min_hp); ?>"></label>
-                    <label>Minimum Attack: <input type="number" name="min_attack" value="<?php echo htmlspecialchars($min_attack); ?>"></label>
-                    <label>Minimum Defense: <input type="number" name="min_defense" value="<?php echo htmlspecialchars($min_defense); ?>"></label>
-                    <label>Minimum Sp. Att.: <input type="number" name="min_spatt" value="<?php echo htmlspecialchars($min_spatt); ?>"></label>
-                    <label>Minimum Sp. Def.: <input type="number" name="min_spdef" value="<?php echo htmlspecialchars($min_spdef); ?>"></label>
-                    <label>Minimum Speed: <input type="number" name="min_speed" value="<?php echo htmlspecialchars($min_speed); ?>"></label>
-                    <label>Type: 
+                    <label> Min. Hp : <input min="0" max="250" type="number" name="min_hp" value="<?php echo htmlspecialchars($min_hp); ?>"></label>
+                    <label> Min. Attack : <input min="0" max="250" type="number" name="min_attack" value="<?php echo htmlspecialchars($min_attack); ?>"></label>
+                    <label> Min. Defense : <input min="0" max="250" type="number" name="min_defense" value="<?php echo htmlspecialchars($min_defense); ?>"></label>
+                    <label> Min. Sp. Att. : <input min="0" max="250" type="number" name="min_spatt" value="<?php echo htmlspecialchars($min_spatt); ?>"></label>
+                    <label> Min. Sp. Def. : <input min="0" max="250" type="number" name="min_spdef" value="<?php echo htmlspecialchars($min_spdef); ?>"></label>
+                    <label> Min. Speed: <input min="0" max="250" type="number" name="min_speed" value="<?php echo htmlspecialchars($min_speed); ?>"></label>
+                    <label> Type : 
                         <select name="type">
                             <option value="" <?php if ($type === '') echo 'selected'; ?>>Any</option>
                             <option value="Grass" <?php if ($type === 'Grass') echo 'selected'; ?>>Grass</option>
@@ -151,7 +151,7 @@ try {
                         </select>
                     </label>
                 </div>
-                <button type="submit">Search</button>
+                <button class ="searchbutton" type="submit">Search</button>
             </form>
         </div>
     </div>
@@ -160,23 +160,6 @@ try {
 <main>
 
 
-    <div class="pokemon-list">
-        <?php while ($pokemon = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
-            <div class="pokemoncard">
-
-                <h2><a class="pokemonName" href="/pokemon?name=<?php echo urlencode(strtolower($pokemon['name_english'])); ?>"><?php echo htmlspecialchars($pokemon['name_english']); ?></a></h2>
-                <div class="types">
-                    <?php 
-                    $types = explode(', ', $pokemon['types']); 
-                    foreach ($types as $type): ?>
-                        <span class="type <?php echo strtolower(htmlspecialchars($type)); ?>"><?php echo htmlspecialchars($type); ?></span>
-                    <?php endforeach; ?>
-                </div>
-                <img src="./public/img/pokemon/<?php echo strtolower($pokemon['name_english']); ?>.png" alt="<?php echo htmlspecialchars($pokemon['name_english']); ?>">
-            </div>
-        <?php endwhile; ?>
-    </div>
-    
     <div class="pagination">
         <?php 
         $url_params = http_build_query([
@@ -193,7 +176,7 @@ try {
         ?>
 
     <?php if ($total_pages > 0): ?>
-            <ul class="pagination">
+            <ul class="pages">
                 <?php if ($page > 1): ?>
                     <li class="prev"><a href="/?<?php echo http_build_query(array_merge($_GET, ['page' => $page - 1])); ?>">Prev</a></li>
                 <?php endif; ?>
@@ -230,12 +213,94 @@ try {
             </ul>
         <?php endif; ?>
 
-        <form action="/" method="get">
+        <form action="/" method="get" class="goform">
             <input type="hidden" name="content" value="home" />
             <?php foreach ($_GET as $key => $value): if ($key != 'page' && $key != 'content'): ?>
                 <input type="hidden" name="<?php echo htmlspecialchars($key); ?>" value="<?php echo htmlspecialchars($value); ?>" />
             <?php endif; endforeach; ?>
-            <label>Go to page : <input type="number" name="page" min="1" max="<?php echo $total_pages; ?>" /></label>
+            <label><input placeholder="N°"type="number" name="page" min="1" max="<?php echo $total_pages; ?>"  class="input" required/></label>
+            <input class="goto" type="submit" value="Go" />
+        </form>
+
+    </div>
+
+
+    <div class="pokemon-list">
+        <?php while ($pokemon = $stmt->fetch(PDO::FETCH_ASSOC)): ?>
+            <div class="pokemoncard">
+
+                <h2><a class="pokemonName" href="/pokemon?name=<?php echo urlencode(strtolower($pokemon['name_english'])); ?>"><?php echo htmlspecialchars($pokemon['name_english']); ?></a></h2>
+                <div class="types">
+                    <?php 
+                    $types = explode(', ', $pokemon['types']); 
+                    foreach ($types as $type): ?>
+                        <span class="type <?php echo strtolower(htmlspecialchars($type)); ?>"><?php echo htmlspecialchars($type); ?></span>
+                    <?php endforeach; ?>
+                </div>
+                <img src="./public/img/pokemon/<?php echo strtolower($pokemon['name_english']); ?>.png" alt="<?php echo htmlspecialchars($pokemon['name_english']); ?>">
+            </div>
+        <?php endwhile; ?>
+    </div>
+    
+    <div class="pagination">
+        <?php 
+        $url_params = http_build_query([
+            'search' => $search,
+            'min_hp' => $min_hp,
+            'min_attack' => $min_attack,
+            'min_defense' => $min_defense,
+            'min_spatt' => $min_spatt,
+            'min_spdef' => $min_spdef,
+            'min_speed' => $min_speed,
+            'type' => $type
+        ]);
+
+        ?>
+
+    <?php if ($total_pages > 0): ?>
+            <ul class="pages">
+                <?php if ($page > 1): ?>
+                    <li class="prev"><a href="/?<?php echo http_build_query(array_merge($_GET, ['page' => $page - 1])); ?>">Prev</a></li>
+                <?php endif; ?>
+
+                <?php if ($page > 3): ?>
+                    <li class="start"><a href="/?<?php echo http_build_query(array_merge($_GET, ['page' => 1])); ?>">1</a></li>
+                    <li class="dots">...</li>
+                <?php endif; ?>
+
+                <?php if ($page - 2 > 0): ?>
+                    <li class="page"><a href="/?<?php echo http_build_query(array_merge($_GET, ['page' => $page - 2])); ?>"><?php echo $page - 2; ?></a></li>
+                <?php endif; ?>
+                <?php if ($page - 1 > 0): ?>
+                    <li class="page"><a href="/?<?php echo http_build_query(array_merge($_GET, ['page' => $page - 1])); ?>"><?php echo $page - 1; ?></a></li>
+                <?php endif; ?>
+
+                <li class="currentpage"><a href="/?<?php echo http_build_query(array_merge($_GET, ['page' => $page])); ?>"><?php echo $page; ?></a></li>
+
+                <?php if ($page + 1 < $total_pages + 1): ?>
+                    <li class="page"><a href="/?<?php echo http_build_query(array_merge($_GET, ['page' => $page + 1])); ?>"><?php echo $page + 1; ?></a></li>
+                <?php endif; ?>
+                <?php if ($page + 2 < $total_pages + 1): ?>
+                    <li class="page"><a href="/?<?php echo http_build_query(array_merge($_GET, ['page' => $page + 2])); ?>"><?php echo $page + 2; ?></a></li>
+                <?php endif; ?>
+
+                <?php if ($page < $total_pages - 2): ?>
+                    <li class="dots">...</li>
+                    <li class="end"><a href="/?<?php echo http_build_query(array_merge($_GET, ['page' => $total_pages])); ?>"><?php echo $total_pages; ?></a></li>
+                <?php endif; ?>
+
+                <?php if ($page < $total_pages): ?>
+                    <li class="next"><a href="/?<?php echo http_build_query(array_merge($_GET, ['page' => $page + 1])); ?>">Next</a></li>
+                <?php endif; ?>
+            </ul>
+        <?php endif; ?>
+
+        <form action="/" method="get" class="goform">
+            <input type="hidden" name="content" value="home" />
+            <?php foreach ($_GET as $key => $value): if ($key != 'page' && $key != 'content'): ?>
+                <input type="hidden" name="<?php echo htmlspecialchars($key); ?>" value="<?php echo htmlspecialchars($value); ?>" />
+            <?php endif; endforeach; ?>
+            <label><input placeholder="N°"type="number" name="page" min="1" max="<?php echo $total_pages; ?>"  class="input" required/></label>
             <input class="goto" type="submit" value="Go" />
         </form>
 

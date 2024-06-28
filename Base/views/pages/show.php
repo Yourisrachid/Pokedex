@@ -14,6 +14,7 @@ try {
         WHERE LOWER(pokemons.name_english) = ?
         GROUP BY pokemons.id
     ");
+    
     $stmt->execute([strtolower($_GET['name'])]);
     $pokemon = $stmt->fetch(PDO::FETCH_ASSOC);
 
