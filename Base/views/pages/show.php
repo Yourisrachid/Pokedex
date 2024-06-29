@@ -6,6 +6,7 @@ try {
     $pdo = new PDO("mysql:host=" . DBHOST . ";dbname=" . DBNAME, DBUSER, DBPASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    // Fetch Pokémon details
     $stmt = $pdo->prepare("
         SELECT pokemons.*, GROUP_CONCAT(types.type SEPARATOR ', ') as types
         FROM pokemons
@@ -22,6 +23,7 @@ try {
         die("Pokemon not found.");
     }
 
+    // Function to fetch Pokémon by ID
     function fetchPokemonById($pdo, $id) {
         $stmt = $pdo->prepare("
             SELECT pokemons.*, GROUP_CONCAT(types.type SEPARATOR ', ') as types
@@ -35,22 +37,47 @@ try {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+
+
+
+
+    // Full evo function cycle -------------------
+
+
+
     function getFullEvolutionCycle($pdo, $pokemon) {
         $evolutionCycle = [];
         $visited = [];
 
-        function fetchEvolutions($pdo, $pokemon, &$evolutionCycle, &$visited, $direction) {
-            $evolutionData = ($direction == 'prev') ? 'prev_evolutions' : 'next_evolutions';
-            if (!empty($pokemon[$evolutionData])) {
-                $evolutionIds = json_decode($pokemon[$evolutionData], true);
-                foreach ($evolutionIds as $evolutionId) {
-                    if (!in_array($evolutionId, $visited)) {
-                        $nextPokemon = fetchPokemonById($pdo, $evolutionId);
-                        if ($nextPokemon) {
-                            $visited[] = $nextPokemon['id'];
-                            fetchEvolutions($pdo, $nextPokemon, $evolutionCycle, $visited, $direction);
-                            $evolutionCycle[] = $nextPokemon;
-                        }
+
+        function fetchEvolutions($pdo, $pokemon, &$evolutionCycle, &$visited) {
+            $stmt = $pdo->prepare("SELECT * FROM evolution WHERE pokemon_id = ? OR prev_id = ? OR next_id = ?");
+            $stmt->execute([$pokemon['id'], $pokemon['id'], $pokemon['id']]);
+            $evolutions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($evolutions as $evolution) {
+                if ($evolution['pokemon_id'] != $pokemon['id'] && !in_array($evolution['pokemon_id'], $visited)) {
+                    $nextPokemon = fetchPokemonById($pdo, $evolution['pokemon_id']);
+                    if ($nextPokemon) {
+                        $visited[] = $nextPokemon['id'];
+                        fetchEvolutions($pdo, $nextPokemon, $evolutionCycle, $visited);
+                        $evolutionCycle[] = $nextPokemon;
+                    }
+                }
+                if ($evolution['prev_id'] != $pokemon['id'] && $evolution['prev_id'] != null && !in_array($evolution['prev_id'], $visited)) {
+                    $prevPokemon = fetchPokemonById($pdo, $evolution['prev_id']);
+                    if ($prevPokemon) {
+                        $visited[] = $prevPokemon['id'];
+                        fetchEvolutions($pdo, $prevPokemon, $evolutionCycle, $visited);
+                        $evolutionCycle[] = $prevPokemon;
+                    }
+                }
+                if ($evolution['next_id'] != $pokemon['id'] && $evolution['next_id'] != null && !in_array($evolution['next_id'], $visited)) {
+                    $nextPokemon = fetchPokemonById($pdo, $evolution['next_id']);
+                    if ($nextPokemon) {
+                        $visited[] = $nextPokemon['id'];
+                        fetchEvolutions($pdo, $nextPokemon, $evolutionCycle, $visited);
+                        $evolutionCycle[] = $nextPokemon;
                     }
                 }
             }
@@ -59,8 +86,7 @@ try {
         $evolutionCycle[] = $pokemon;
         $visited[] = $pokemon['id'];
 
-        fetchEvolutions($pdo, $pokemon, $evolutionCycle, $visited, 'prev');
-        fetchEvolutions($pdo, $pokemon, $evolutionCycle, $visited, 'next');
+        fetchEvolutions($pdo, $pokemon, $evolutionCycle, $visited);
 
         usort($evolutionCycle, function($a, $b) {
             return $a['id'] - $b['id'];
@@ -70,6 +96,9 @@ try {
     }
 
     $evolutionCycle = getFullEvolutionCycle($pdo, $pokemon);
+
+
+    // ----------------------------------
 
 } catch (PDOException $e) {
     die("Connection failed: " . $e->getMessage());
