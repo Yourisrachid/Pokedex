@@ -4,14 +4,15 @@ require_once __DIR__ . '../../partials/header.php';
 
 $limit = 15;
 
-$search = isset($_GET['search']) ? $_GET['search'] : '';
+$search = isset($_GET['search']) ? htmlspecialchars($_GET['search']) : '';
 $min_hp = isset($_GET['min_hp']) ? intval($_GET['min_hp']) : 0;
 $min_attack = isset($_GET['min_attack']) ? intval($_GET['min_attack']) : 0;
 $min_defense = isset($_GET['min_defense']) ? intval($_GET['min_defense']) : 0;
 $min_spatt = isset($_GET['min_spatt']) ? intval($_GET['min_spatt']) : 0;
 $min_spdef = isset($_GET['min_spdef']) ? intval($_GET['min_spdef']) : 0;
 $min_speed = isset($_GET['min_speed']) ? intval($_GET['min_speed']) : 0;
-$type = isset($_GET['type']) ? $_GET['type'] : '';
+$type = isset($_GET['type']) ? htmlspecialchars($_GET['type']) : '';
+$favorites_only = isset($_GET['favorites_only']) ? true : false;
 
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
@@ -57,6 +58,25 @@ try {
         $params[':type'] = $type;
     }
 
+    $favorite_pokemon_ids = [];
+    if ($favorites_only && isset($_SESSION['user_id'])) {
+        $stmt = $pdo->prepare("SELECT favorite FROM user WHERE id = :user_id");
+        $stmt->execute([':user_id' => $_SESSION['user_id']]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            $favorites = json_decode($user['favorite'], true) ?? [];
+            if (!empty($favorites)) {
+                $favorite_placeholders = implode(',', array_fill(0, count($favorites), '?'));
+                $countQuery .= " AND pokemons.id IN ($favorite_placeholders)";
+                $params = array_merge($params, $favorites);
+                $favorite_pokemon_ids = $favorites;
+            } else {
+                $countQuery .= " AND 0";
+            }
+        }
+    }
+
     $stmt = $pdo->prepare($countQuery);
     foreach ($params as $key => $value) {
         $stmt->bindValue($key, $value);
@@ -98,6 +118,15 @@ try {
     if ($type) {
         $dataQuery .= " AND types.type = :type";
     }
+
+    if ($favorites_only && isset($_SESSION['user_id'])) {
+        if (!empty($favorite_pokemon_ids)) {
+            $dataQuery .= " AND pokemons.id IN ($favorite_placeholders)";
+        } else {
+            $dataQuery .= " AND 0";
+        }
+    }
+
     $dataQuery .= " GROUP BY pokemons.id ORDER BY pokemons.id ASC LIMIT :start, :limit";
 
     $stmt = $pdo->prepare($dataQuery);
@@ -111,7 +140,6 @@ try {
 } catch (PDOException $e) {
     die("Connection failed: " . $e->getMessage());
 }
-
 ?>
 
 <div>
@@ -150,6 +178,7 @@ try {
                             <option value="Normal" <?php if ($type === 'Normal') echo 'selected'; ?>>Normal</option>
                         </select>
                     </label>
+                    <label><input type="checkbox" name="favorite_only" <?php if (isset($_GET['favorite_only'])) echo 'checked'; ?>> Fav</label>
                 </div>
                 <button class ="searchbutton" type="submit">Search</button>
             </form>
@@ -238,6 +267,13 @@ try {
                     <?php endforeach; ?>
                 </div>
                 <img src="./public/img/pokemon/<?php echo strtolower($pokemon['name_english']); ?>.png" alt="<?php echo htmlspecialchars($pokemon['name_english']); ?>">
+                <?php if (isset($_SESSION['user'])): ?>
+                    <form method="post" action="views/pages/toggle_favorite.php">
+                        <input type="hidden" name="pokemon_id" value="<?php echo $pokemon['id']; ?>">
+                        <input type="checkbox" name="favorite" <?php if (in_array($pokemon['id'], $favorite_pokemon_ids)) echo 'checked'; ?> onchange="this.form.submit()">
+                        Add to favorite
+                    </form>
+                <?php endif; ?>
             </div></a>
         <?php endwhile; ?>
     </div>

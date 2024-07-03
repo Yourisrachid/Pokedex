@@ -44,6 +44,10 @@ body .logout {
   font-size: 16px;
 }
 
+.links {
+  margin-left: -7%;
+}
+
 body {
   background-color: #f1f1f1;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
@@ -151,6 +155,20 @@ nav ul li .active {
   color: #ffc62a;
 }
 
+.dark {
+  background-color: black;
+}
+.dark main {
+  background-color: #43464b;
+}
+.dark #search-block {
+  background-color: #43464b;
+  border: 1px solid #3b3e42;
+}
+.dark .navbar {
+  border-bottom: 1px solid #3b3e42;
+}
+
 main {
   width: 90%;
   margin: 0 auto;
@@ -188,11 +206,11 @@ main {
 }
 .pokemoncard:hover {
   transition: all 0.2s ease-in-out;
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 .pokemoncard:active {
   transition: all 0.2s ease-in-out;
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .pages {
@@ -252,16 +270,6 @@ main {
   grid-template-columns: repeat(3, 60%);
   grid-template-rows: repeat(5, 20%);
   margin-left: 5%;
-}
-
-.dark {
-  background-color: black;
-}
-.dark main {
-  background-color: #43464b;
-}
-.dark .search-block form {
-  background-color: #43464b;
 }
 
 .pagination {
@@ -450,7 +458,6 @@ main {
   top: 20px;
   width: 85%;
   padding: 10px;
-  background-color: white;
   border: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: max-height 0.5s ease-out;

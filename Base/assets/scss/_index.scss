@@ -41,12 +41,12 @@ main {
 
     &:hover {
         transition: all .2s ease-in-out;
-        transform: scale(1.1);
+        transform: scale(1.05);
     }
 
     &:active {
         transition: all .2s ease-in-out;
-        transform: scale(1.05);
+        transform: scale(1.02);
     }
 }
 
@@ -120,18 +120,6 @@ main {
 }
 
 
-.dark {
-    background-color: black;
-    main{
-        background-color: #43464b;
-    }
-    .search-block {
-        form {
-            background-color: #43464b;
-        }
-        
-    }
-}
 
 .pagination {
     text-align: center;
