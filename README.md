@@ -2,7 +2,7 @@
 
 ## What is it ?
 
-The Pokedex Project is the work of 4 web developers, collaboring to develop a pokedex applications containing informations about a thousand pokemons.
+The Pokedex Project is the work of 4 web developers, collaboring to develop a pokedex application containing informations about a thousand pokemons.
 
 This dynamic website holds the following features :
 
